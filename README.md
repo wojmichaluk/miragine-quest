@@ -48,6 +48,11 @@ Prawa połowa obszaru to część przeciwnika.
 W jej połowie znajdują się dodatkowe oddziały wartownicze pod dowództwem arcyzłego hetmana von Mueschke (niezależne od wysyłanych jednostek).
 Na skraju czeka arcyzły mag O'Valish, który jest ostatnią przeszkodą na drodze do uwolnienia królewny.
 
+#### Interfejs użytkownika
+
+Poza "standardowymi" przyciskami służącymi do zapauzowania gry oraz powrotu do głównego menu gry, interfejs użytkownika obejmuje elementy skupione w dolnej części ekranu.
+Znajdują się tam zminiaturyzowany podgląd mapy z symbolicznym zaznaczeniem jednostek gracza (niebieskie kropki) i jednostek przeciwnika (czerwone kropki) oraz podglądanego obszaru w głównym widoku gry (prostokąt), a także panel wyboru jednostek, w którym użytkownik zaznacza jednostkę/i, którą/e chce wysłać do walki w następnej rundzie; porównaj screen z oryginalnej gry u góry dokumentu.
+
 ### Koniec gry
 
 #### Wygrana
@@ -57,6 +62,12 @@ Gracz wygrywa, jeżeli pokona oddział wartowniczy przeciwnika kierowany przez h
 #### Przegrana
 
 Gracz przegrywa, jeżeli oddziały przeciwnika przeważą oddziały gracza i zabiją królewicza Bajtomira.
+
+### Sterowanie
+
+Gra może być w całości rozegrana z użyciem jedynie myszy.
+Za pomocą myszki gracz może zaznaczać jednostki w panelu wyboru, przesunąć podgląd obecnie wyświetlanego obszaru gry na minimapie oraz zapauzować grę / wyjść do menu głównego.
+Opcjonalnie, za pomocą strzałek lub klawiszy WASD gracz może zmieniać zaznaczoną jednostkę w panelu wyboru na sąsiednią w odpowiednim kierunku, w zależności od akcji użytkownika.
 
 ### Inne
 
