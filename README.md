@@ -77,6 +77,10 @@ W teorii gra może trwać w nieskończoność, ale przy odpowiedniej taktyce gra
 
 #### Trudność gry
 
-Gra raczej jest nietrudna, ale to oczywiście subiektywna ocena.
+Celem autora jest, żeby gra była stosunkowo nietrudna, ale to oczywiście subiektywna ocena i kwestia odpowiedniego zbalansowania atrybutów jednostek.
 Gracz może wybrać jeden z trzech poziomów trudności: **Łatwy**, **Normalny** i **Trudny**.
-Różnią się one między sobą przeskalowaniem odpowiednich atrybutów typów jednostek po stronie przeciwnika.
+Różnią się one między sobą przeskalowaniem odpowiednich atrybutów jednostek po stronie przeciwnika.
+
+#### Etapy realizacji projektu
+
+Kolejne etapy realizacji projektu są przedstawione w [pliku z opisem etapów](./roadmap.md).
