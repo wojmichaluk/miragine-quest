@@ -1,0 +1,4 @@
+# Godot ignores
+godot-project/.godot/
+godot-project/*.import
+godot-project/*.translation

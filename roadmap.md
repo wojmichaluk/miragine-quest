@@ -7,13 +7,14 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 
 ### 09 III - 15 III
 - pomysł na dodanie elementu fabularnego i odstępstwo od oryginału
+- zrealizowanie tutoriali do silnika Godot (pierwsza gra 2D i 3D)
 
 ### 16 III - 22 III
 - sformalizowanie powyższego pomysłu
 - wstępne, szczegółowe opisanie elementów gry w pliku [README.md](./README.md)
 
 ### 23 III - 29 III
-- 
+- stworzenie zalążka projektu w Godocie (mapa, przesuwanie widoku za pomocą klawiatury)
 
 ### 30 III - 05 IV
 - 

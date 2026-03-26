@@ -4,7 +4,7 @@
 
 Gra jest inspirowana grą flashową *Miragine War* ([przykładowy link](https://www.friv.com/z/games/miraginewar/game.html), pod którym można w nią zagrać).
 Przykładowy screenshot z tej gry ([źródło](https://i.ytimg.com/vi/hS-iM9C909E/maxresdefault.jpg)):
-![przykładowy screenshot](./image.jpg)
+![przykładowy screenshot](./images/miragine_war_example.jpg)
 
 ## Fabuła
 
@@ -80,6 +80,11 @@ W teorii gra może trwać w nieskończoność, ale przy odpowiedniej taktyce gra
 Celem autora jest, żeby gra była stosunkowo nietrudna, ale to oczywiście subiektywna ocena i kwestia odpowiedniego zbalansowania atrybutów jednostek.
 Gracz może wybrać jeden z trzech poziomów trudności: **Łatwy**, **Normalny** i **Trudny**.
 Różnią się one między sobą przeskalowaniem odpowiednich atrybutów jednostek po stronie przeciwnika.
+
+#### Wykorzystane narzędzia
+
+Gra jest napisana w silniku Godot.
+Wykorzystane grafiki zostały przygotowane samodzielnie w programie graficznym lub jako dostępne za darmo assety (w takim przypadku jest umieszczona informacja o źródle).
 
 #### Etapy realizacji projektu
 
