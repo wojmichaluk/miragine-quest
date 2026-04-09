@@ -1,7 +1,7 @@
 extends Camera2D
 
 
-var speed = 750
+var speed = 1500
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,10 +15,10 @@ func _process(delta: float) -> void:
 	var min_pos = limit_left + half_visible_screen
 	var max_pos = limit_right - half_visible_screen
 	
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("move_right"):
 		position.x += speed * delta
 	
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("move_left"):
 		position.x -= speed * delta
 	
 	position.x = clamp(position.x, min_pos, max_pos)

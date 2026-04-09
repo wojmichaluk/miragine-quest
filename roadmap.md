@@ -22,7 +22,8 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - przygotowanie prostych grafik dla jednostek (niebieskie i czerwone kwadraty)
 
 ### 06 IV - 12 IV
-- 
+- utworzenie dla jednostek punktów życia, mechaniki ataku (z prostą animacją) oraz podążania za wrogiem
+- stworzenie minimapy, która podświetla aktualnie podglądany obszar i umożliwia podgląd dowolnego obszaru (odwzorowanie w dwie strony)
 
 ### 13 IV - 19 IV
 - 
