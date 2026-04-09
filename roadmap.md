@@ -17,7 +17,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - stworzenie zalążka projektu w Godocie (mapa, przesuwanie widoku za pomocą klawiatury)
 
 ### 30 III - 05 IV
-- 
+- rozbudowa mapy, dodanie kafelków "łączących" na środku mapy
+- dodanie panelu jednostek na dole interfejsu
+- przygotowanie prostych grafik dla jednostek (niebieskie i czerwone kwadraty)
 
 ### 06 IV - 12 IV
 - 

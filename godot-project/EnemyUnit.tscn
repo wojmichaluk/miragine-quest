@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bcmlashiro1v6"]
+
+[ext_resource type="Script" uid="uid://q6g0f8ws6goq" path="res://unit.gd" id="2_3lyxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3lyxy"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1inur"]
+size = Vector2(132, 1800)
+
+[node name="EnemyUnit" type="CharacterBody2D" unique_id=1664070961 groups=["enemy"]]
+y_sort_enabled = true
+script = ExtResource("2_3lyxy")
+unit_name = "Enemy"
+direction = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1089246405]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1234237736]
+shape = SubResource("RectangleShape2D_3lyxy")
+
+[node name="AttackZone" type="Area2D" parent="." unique_id=1221158233]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone" unique_id=177338786]
+shape = SubResource("RectangleShape2D_1inur")

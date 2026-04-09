@@ -1,4 +1,10 @@
 [gd_scene format=3 uid="uid://dovh1t8pol4v0"]
 
+[ext_resource type="Script" uid="uid://dxq8dnqss2sqs" path="res://unit_button.gd" id="1_t3wia"]
+
 [node name="UnitButton" type="Button" unique_id=1850882393]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(85, 85)
+size_flags_vertical = 0
+script = ExtResource("1_t3wia")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
