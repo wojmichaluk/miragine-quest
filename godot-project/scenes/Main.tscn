@@ -1,23 +1,23 @@
 [gd_scene format=4 uid="uid://cjvegyqr461ol"]
 
-[ext_resource type="Texture2D" uid="uid://dw108jjshbtwx" path="res://art/grass_tile.png" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://bripew4wfykku" path="res://main.gd" id="1_7mycd"]
-[ext_resource type="Texture2D" uid="uid://df4mjeojj63pp" path="res://art/mixed_tile.png" id="1_lquwl"]
-[ext_resource type="Texture2D" uid="uid://cabq11duqc4jj" path="res://art/ground_tile.png" id="2_h2yge"]
-[ext_resource type="Script" uid="uid://dgi4e005184wj" path="res://camera_2d.gd" id="3_h2yge"]
-[ext_resource type="Script" uid="uid://dr8onev4b1pvh" path="res://ui.gd" id="4_1bvp3"]
-[ext_resource type="Script" uid="uid://cqj1saa27mvbd" path="res://minimap.gd" id="7_272bh"]
+[ext_resource type="Script" uid="uid://bripew4wfykku" path="res://scripts/main.gd" id="1_nxtc6"]
+[ext_resource type="Texture2D" uid="uid://df4mjeojj63pp" path="res://assets/map/mixed_tile.png" id="2_jlsqs"]
+[ext_resource type="Texture2D" uid="uid://dw108jjshbtwx" path="res://assets/map/grass_tile.png" id="3_q8u5g"]
+[ext_resource type="Texture2D" uid="uid://cabq11duqc4jj" path="res://assets/map/ground_tile.png" id="4_lhr70"]
+[ext_resource type="Script" uid="uid://dgi4e005184wj" path="res://scripts/camera_2d.gd" id="5_wp0k4"]
+[ext_resource type="Script" uid="uid://dr8onev4b1pvh" path="res://scripts/ui.gd" id="6_bjd11"]
+[ext_resource type="Script" uid="uid://cqj1saa27mvbd" path="res://scripts/minimap.gd" id="7_qmy6f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 resource_name = "Mixed"
-texture = ExtResource("1_lquwl")
+texture = ExtResource("2_jlsqs")
 texture_region_size = Vector2i(128, 64)
 0:0/0 = 0
 0:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0xm2m"]
 resource_name = "Grass"
-texture = ExtResource("1_0xm2m")
+texture = ExtResource("3_q8u5g")
 texture_region_size = Vector2i(128, 64)
 0:0/0 = 0
 1:0/0 = 0
@@ -26,7 +26,7 @@ texture_region_size = Vector2i(128, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
 resource_name = "Ground"
-texture = ExtResource("2_h2yge")
+texture = ExtResource("4_lhr70")
 texture_region_size = Vector2i(128, 64)
 0:0/0 = 0
 1:0/0 = 0
@@ -52,7 +52,7 @@ border_width_bottom = 2
 
 [node name="Main" type="Node2D" unique_id=300323835]
 y_sort_enabled = true
-script = ExtResource("1_7mycd")
+script = ExtResource("1_nxtc6")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1485000736]
 z_index = -1
@@ -65,7 +65,7 @@ limit_left = -5000
 limit_top = 0
 limit_right = 5000
 limit_bottom = 900
-script = ExtResource("3_h2yge")
+script = ExtResource("5_wp0k4")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1766645243]
 
@@ -76,7 +76,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_1bvp3")
+script = ExtResource("6_bjd11")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI" unique_id=977985668]
 layout_mode = 1
@@ -122,7 +122,7 @@ offset_top = 25.0
 offset_right = 425.0
 offset_bottom = 95.0
 color = Color(0.13210526, 0.13768926, 0.17670855, 1)
-script = ExtResource("7_272bh")
+script = ExtResource("7_qmy6f")
 camera = NodePath("../../../../../../../Camera2D")
 
 [node name="ViewIndicator" type="Panel" parent="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space/Minimap" unique_id=385643387]

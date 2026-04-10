@@ -1,16 +1,16 @@
 extends Control
 
+
 var player_icons_textures = []
 var enemy_icons_textures = []
-var unit_button_scene = preload("res://UnitButton.tscn")
-
+var unit_button_scene = preload("res://scenes/UnitButton.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Load icon textures for player units and enemy units
 	for i in range(1, 13):
-		player_icons_textures.append(load("res://art/units/player/unit" + str(i) + ".png"))
-		enemy_icons_textures.append(load("res://art/units/enemy/unit" + str(i) + ".png"))
+		player_icons_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
+		enemy_icons_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
 	create_buttons()
 

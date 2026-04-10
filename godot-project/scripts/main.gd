@@ -2,8 +2,8 @@ extends Node2D
 
 
 # Player and enemy unit scenes
-var player_unit_scene = preload("res://PlayerUnit.tscn")
-var enemy_unit_scene = preload("res://EnemyUnit.tscn")
+var player_unit_scene = preload("res://scenes/PlayerUnit.tscn")
+var enemy_unit_scene = preload("res://scenes/EnemyUnit.tscn")
 
 # Player and enemy textures
 var player_textures = []
@@ -36,8 +36,8 @@ signal weight_changed(current, maximum, is_player)
 func _ready() -> void:
 	# Load textures for player units and enemy units
 	for i in range(1, 13):
-		player_textures.append(load("res://art/units/player/unit" + str(i) + ".png"))
-		enemy_textures.append(load("res://art/units/enemy/unit" + str(i) + ".png"))
+		player_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
+		enemy_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
 	load_all_units()
 	gold_changed.connect($CanvasLayer/UI.update_gold_display)

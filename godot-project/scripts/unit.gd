@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+
 # Unit attributes
 @export var unit_name: String
 @export var weight: int
@@ -24,9 +25,9 @@ func _ready() -> void:
 	current_health = max_health
 	
 	if attack_type == "physical":
-		attack_range = 40.0
+		attack_range = 50.0
 	else:
-		attack_range = 200.0
+		attack_range = 250.0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,8 +58,8 @@ func _physics_process(delta: float) -> void:
 	
 	if should_move:
 		move_and_slide()
-	
-	
+
+
 func find_closest_target():
 	# Get all objects in attack zone
 	var bodies = attack_zone.get_overlapping_bodies()
@@ -90,7 +91,7 @@ func attack_target(target, delta):
 		return
 	
 	attack_timer += delta
-
+	
 	# Waiting until attack_timer reaches attack_speed
 	if attack_timer >= attack_speed:
 		# Animate
@@ -100,8 +101,8 @@ func attack_target(target, delta):
 		
 		# Reset the counter
 		attack_timer = 0.0
-		
-		
+
+
 func play_attack_animation():
 	# Creating tween engine
 	var tween = create_tween()

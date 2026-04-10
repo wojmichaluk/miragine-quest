@@ -80,7 +80,3 @@ func move_camera_to_click(click_position: Vector2):
 	
 	# Calculating map (camera) position
 	camera.global_position.x = world_width * ratio + offset
-	
-	# Opcjonalnie: ogranicz kamerę, żeby nie wyjechała poza krawędź świata
-	# var screen_half_width = get_viewport_rect().size.x / 2
-	# camera.global_position.x = clamp(camera.global_position.x, screen_half_width, world_width - screen_half_width)
