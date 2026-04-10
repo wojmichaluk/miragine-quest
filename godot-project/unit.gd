@@ -2,22 +2,31 @@ extends CharacterBody2D
 
 # Unit attributes
 @export var unit_name: String
-@export var speed: int = 500
-@export var direction: int = 1
-@export var max_health: float = 100.0
-@export var attack_damage: float = 20.0
-@export var attack_speed: float = 1.0
-@export var attack_range: float = 40.0
+@export var weight: int
+@export var speed: int
+@export var attack_speed: float
+@export var max_health: float
+@export var attack_damage: float
+@export var attack_type: String
+@export var res_phys: int
+@export var res_mag: int
+@export var direction: int
 
-var current_health: float = 100.0
-var is_dead: bool = false
 var attack_timer: float = 0.0
+var current_health: float
+var attack_range: float
+var is_dead: bool = false
 
 @onready var attack_zone = $AttackZone
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	current_health = max_health
+	
+	if attack_type == "physical":
+		attack_range = 40.0
+	else:
+		attack_range = 200.0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,6 +37,9 @@ func _physics_process(delta: float) -> void:
 	var target_to_attack = closest_target["target"]
 	var distance_to_target = closest_target["min_dist"]
 	
+	# Conditional movement
+	var should_move = true
+	
 	if target_to_attack != null and is_instance_valid(target_to_attack):
 		# Calculating direction to the target (approaching)
 		var direction_to_target = (target_to_attack.global_position - global_position).normalized()
@@ -37,12 +49,14 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = Vector2.ZERO
 			attack_target(target_to_attack, delta)
+			should_move = false
 	else:
 		attack_timer = 0.0
 		velocity.x = speed * direction
 		velocity.y = 0
-
-	move_and_slide()
+	
+	if should_move:
+		move_and_slide()
 	
 	
 func find_closest_target():
@@ -70,8 +84,7 @@ func find_closest_target():
 		"min_dist": min_dist
 	}
 
-	
-	
+
 func attack_target(target, delta):
 	if not is_instance_valid(target): 
 		return
@@ -83,7 +96,7 @@ func attack_target(target, delta):
 		# Animate
 		play_attack_animation()
 		
-		target.take_damage(attack_damage)
+		target.take_damage(attack_damage, attack_type)
 		
 		# Reset the counter
 		attack_timer = 0.0
@@ -103,8 +116,11 @@ func play_attack_animation():
 	tween.tween_property(sprite, "rotation", 0.0, 0.2).set_trans(Tween.TRANS_SINE)
 
 
-func take_damage(amount: float):
-	current_health -= amount
+func take_damage(amount: float, atk_type: String):
+	if atk_type == "physical":
+		current_health -= amount * (10.0 - res_phys) / 10.0
+	else:
+		current_health -= amount * (10.0 - res_mag) / 10.0
 
 	if current_health <= 0 and not is_dead:
 		die()

@@ -147,28 +147,61 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 6
 
-[node name="PlayerGold" type="Label" parent="CanvasLayer/UI" unique_id=735946417]
+[node name="Labels" type="Control" parent="CanvasLayer/UI" unique_id=1341234400]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerGold" type="Label" parent="CanvasLayer/UI/Labels" unique_id=735946417]
 layout_mode = 0
-offset_right = 140.0
-offset_bottom = 45.0
+offset_right = 250.0
+offset_bottom = 83.0
 theme_override_font_sizes/font_size = 60
 
-[node name="EnemyGold" type="Label" parent="CanvasLayer/UI" unique_id=1092886061]
+[node name="EnemyGold" type="Label" parent="CanvasLayer/UI/Labels" unique_id=1092886061]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -140.0
-offset_bottom = 45.0
+offset_left = 1310.0
+offset_right = 1560.0
+offset_bottom = 83.0
 grow_horizontal = 0
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 2
+
+[node name="TimerLabel" type="Label" parent="CanvasLayer/UI/Labels" unique_id=448844024]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 740.0
+offset_right = 820.0
+offset_bottom = 83.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+
+[node name="PlayerCapacity" type="Label" parent="CanvasLayer/UI/Labels" unique_id=1126935031]
+layout_mode = 0
+offset_top = 83.0
+offset_right = 400.0
+offset_bottom = 166.0
+theme_override_font_sizes/font_size = 60
+
+[node name="EnemyCapacity" type="Label" parent="CanvasLayer/UI/Labels" unique_id=764414135]
+layout_mode = 1
+offset_left = 1200.0
+offset_top = 83.0
+offset_right = 1600.0
+offset_bottom = 166.0
 theme_override_font_sizes/font_size = 60
 horizontal_alignment = 2
 
 [node name="UnitsNode" type="Node2D" parent="." unique_id=1498030784]
 y_sort_enabled = true
 
-[node name="IncomeTimer" type="Timer" parent="." unique_id=1442052412]
-wait_time = 10.0
+[node name="GameTimer" type="Timer" parent="." unique_id=1442052412]
 autostart = true
 
-[connection signal="timeout" from="IncomeTimer" to="." method="_on_income_timer_timeout"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

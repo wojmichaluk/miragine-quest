@@ -1,7 +1,6 @@
 extends Button
 
 var unit_id: int
-var unit_texture: Texture2D
 var is_player_side: bool
 
 
@@ -16,4 +15,4 @@ func _process(delta: float) -> void:
 	
 	
 func _on_pressed():
-	get_tree().current_scene.spawn_unit(unit_id, unit_texture, is_player_side)\
+	get_tree().current_scene.spawn_unit(unit_id, is_player_side)

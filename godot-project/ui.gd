@@ -1,16 +1,16 @@
 extends Control
 
-var player_textures = []
-var enemy_textures = []
+var player_icons_textures = []
+var enemy_icons_textures = []
 var unit_button_scene = preload("res://UnitButton.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Load textures for player units and enemy units
+	# Load icon textures for player units and enemy units
 	for i in range(1, 13):
-		player_textures.append(load("res://art/units/player/unit" + str(i) + ".png"))
-		enemy_textures.append(load("res://art/units/enemy/unit" + str(i) + ".png"))
+		player_icons_textures.append(load("res://art/units/player/unit" + str(i) + ".png"))
+		enemy_icons_textures.append(load("res://art/units/enemy/unit" + str(i) + ".png"))
 	
 	create_buttons()
 
@@ -44,17 +44,45 @@ func create_buttons():
 		style.content_margin_bottom = 10
 		
 		if is_player:
-			button.icon = player_textures[id]
-			button.unit_texture = player_textures[id]
+			button.icon = player_icons_textures[id]
 			left_group.add_child(button)
 		else:
-			button.icon = enemy_textures[id]
-			button.unit_texture = enemy_textures[id]
+			button.icon = enemy_icons_textures[id]
 			right_group.add_child(button)
 
 
 func update_gold_display(amount: int, is_player: bool):
 	if is_player:
-		$PlayerGold.text = "Złoto: " + str(amount)
+		$Labels/PlayerGold.text = "Złoto: " + str(amount)
 	else:
-		$EnemyGold.text = "Złoto: " + str(amount)
+		$Labels/EnemyGold.text = "Złoto: " + str(amount)
+
+
+func update_timer_display(seconds_left: int, is_shopping: bool):
+	$Labels/TimerLabel.text = str(seconds_left)
+	
+	# Change text color if shopping phase
+	if is_shopping:
+		$Labels/TimerLabel.modulate = Color.GREEN
+	else:
+		$Labels/TimerLabel.modulate = Color.WHITE
+
+
+func update_weight_display(current: int, maximum: int, is_player: bool):
+	if is_player:
+		$Labels/PlayerCapacity.text = "Armia: " + str(current) + " / " + str(maximum)
+	else:
+		$Labels/EnemyCapacity.text = "Armia: " + str(current) + " / " + str(maximum)
+
+
+func set_buttons_enabled(enabled: bool):
+	var player_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridLeft.get_children()
+	var enemy_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridRight.get_children()
+	
+	# Joining unit buttons together
+	var unit_buttons = player_unit_buttons + enemy_unit_buttons
+	
+	for button in unit_buttons:
+		if button is Button:
+			button.disabled = !enabled
+			button.modulate.a = 1.0 if enabled else 0.5
