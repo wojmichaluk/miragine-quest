@@ -26,7 +26,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - stworzenie minimapy, która podświetla aktualnie podglądany obszar i umożliwia podgląd dowolnego obszaru (odwzorowanie w dwie strony)
 
 ### 13 IV - 19 IV
-- 
+- dodanie różnych typów jednostek (o różniących się parametrach)
+- stworzenie systemu "walutowego" celem balansu - złoto, za które kupuje się jednostki oraz limit wag jednostek kupionych w jednej rundzie
+- dodanie baz dla obu stron jako celu gry - ich zniszczenie oznacza koniec gry
 
 ### 20 IV - 26 IV
 - 

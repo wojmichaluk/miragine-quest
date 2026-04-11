@@ -1,9 +1,10 @@
 extends Node2D
 
 
-# Player and enemy unit scenes
+# Player and enemy unit & base scenes
 var player_unit_scene = preload("res://scenes/PlayerUnit.tscn")
 var enemy_unit_scene = preload("res://scenes/EnemyUnit.tscn")
+var base_scene = preload("res://scenes/Base.tscn")
 
 # Player and enemy textures
 var player_textures = []
@@ -39,7 +40,11 @@ func _ready() -> void:
 		player_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
 		enemy_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
+	# Setup bases and load all units
+	setup_bases()
 	load_all_units()
+	
+	# Connect time and currency signals
 	gold_changed.connect($CanvasLayer/UI.update_gold_display)
 	time_changed.connect($CanvasLayer/UI.update_timer_display)
 	weight_changed.connect($CanvasLayer/UI.update_weight_display)
@@ -58,6 +63,24 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func setup_bases():
+	var player_base = base_scene.instantiate()
+	player_base.position = Vector2(-4500, 350)
+	player_base.is_player_base = true
+	player_base.get_node("Sprite2D").texture = load("res://assets/bases/player_base.png")
+	add_child(player_base)
+	
+	var enemy_base = base_scene.instantiate()
+	enemy_base.position = Vector2(4500, 350)
+	enemy_base.is_player_base = false
+	enemy_base.get_node("Sprite2D").texture = load("res://assets/bases/enemy_base.png")
+	add_child(enemy_base)
+	
+	# Connecting signals to UI
+	player_base.base_health_changed.connect($CanvasLayer/UI.update_base_hp)
+	enemy_base.base_health_changed.connect($CanvasLayer/UI.update_base_hp)
 
 
 func load_all_units():
@@ -126,7 +149,7 @@ func spawn_unit(unit_id: int, is_player: bool):
 		new_unit.get_node("Sprite2D").texture = enemy_textures[unit_id]
 	
 	# Setting unit orientation
-	new_unit.position = Vector2(-dir * 4000, randf_range(100, 600))
+	new_unit.position = Vector2(-dir * 4400, randf_range(100, 600))
 	new_unit.direction = dir
 	
 	# Setting unit attributes

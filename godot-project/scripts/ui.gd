@@ -1,6 +1,7 @@
 extends Control
 
 
+@export var health_gradient: Gradient
 var player_icons_textures = []
 var enemy_icons_textures = []
 var unit_button_scene = preload("res://scenes/UnitButton.tscn")
@@ -13,6 +14,8 @@ func _ready() -> void:
 		enemy_icons_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
 	create_buttons()
+	setup_health_bar($ProgressBars/PlayerHealth)
+	setup_health_bar($ProgressBars/EnemyHealth)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -51,6 +54,13 @@ func create_buttons():
 			right_group.add_child(button)
 
 
+func setup_health_bar(bar: TextureProgressBar):
+	var tex = bar.texture_progress
+	tex.width = 720
+	tex.height = 40
+	bar.tint_progress = health_gradient.sample(1.0)
+
+
 func update_gold_display(amount: int, is_player: bool):
 	if is_player:
 		$Labels/PlayerGold.text = "Złoto: " + str(amount)
@@ -86,3 +96,12 @@ func set_buttons_enabled(enabled: bool):
 		if button is Button:
 			button.disabled = !enabled
 			button.modulate.a = 1.0 if enabled else 0.5
+
+
+func update_base_hp(current: float, maximum: float, is_player: bool):
+	var hp_bar = $ProgressBars/PlayerHealth if is_player else $ProgressBars/EnemyHealth
+	hp_bar.max_value = maximum
+	hp_bar.value = current
+	
+	# Display health bar as a gradient
+	hp_bar.tint_progress = health_gradient.sample(current / maximum)

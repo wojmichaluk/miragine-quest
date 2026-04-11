@@ -25,7 +25,7 @@ func _ready() -> void:
 	current_health = max_health
 	
 	if attack_type == "physical":
-		attack_range = 50.0
+		attack_range = 40.0
 	else:
 		attack_range = 250.0
 
@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 		var direction_to_target = (target_to_attack.global_position - global_position).normalized()
 		
 		if distance_to_target > attack_range:
-			velocity = direction_to_target * 0.5 * speed
+			velocity = direction_to_target * 0.75 * speed
 		else:
 			velocity = Vector2.ZERO
 			attack_target(target_to_attack, delta)

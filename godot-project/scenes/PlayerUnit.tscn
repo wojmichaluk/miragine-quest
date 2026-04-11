@@ -6,7 +6,7 @@
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgtta"]
-size = Vector2(150, 1800)
+size = Vector2(200, 1800)
 
 [node name="PlayerUnit" type="CharacterBody2D" unique_id=1532960382 groups=["player"]]
 y_sort_enabled = true
@@ -21,5 +21,4 @@ shape = SubResource("RectangleShape2D_34bfp")
 [node name="AttackZone" type="Area2D" parent="." unique_id=1301097585]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone" unique_id=482549527]
-position = Vector2(-25, 0)
 shape = SubResource("RectangleShape2D_xgtta")

@@ -4,6 +4,7 @@ extends ColorRect
 @onready var indicator = $ViewIndicator
 @export var camera: Camera2D
 @export var unit_dot_radius: float = 2.0
+@export var ui_panel: Panel
 
 var world_width: float
 var offset: float
@@ -37,7 +38,7 @@ func _draw():
 	if not camera: return
 	
 	# Calculating world height
-	var world_height = camera.limit_bottom - camera.limit_top
+	var world_height = camera.limit_bottom - camera.limit_top - ui_panel.size.y
 	
 	# Drawing player units
 	var player_units = get_tree().get_nodes_in_group("player")
