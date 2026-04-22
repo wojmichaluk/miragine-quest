@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://nhkd3i2ct16r"]
+
+[ext_resource type="Script" uid="uid://dflp3y72evrh4" path="res://scripts/projectile.gd" id="1_dprbf"]
+[ext_resource type="Texture2D" uid="uid://dgckrvsjygnki" path="res://icon.svg" id="2_vihyi"]
+
+[node name="Projectile" type="Sprite2D" unique_id=113716615]
+position = Vector2(0, 2.3841858e-07)
+scale = Vector2(0.15624999, 0.15625)
+texture = ExtResource("2_vihyi")
+script = ExtResource("1_dprbf")

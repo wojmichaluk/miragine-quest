@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 # Unit attributes
+@export var unit_id: int
 @export var unit_name: String
 @export var weight: int
 @export var speed: int
@@ -13,12 +14,27 @@ extends CharacterBody2D
 @export var res_mag: int
 @export var direction: int
 
+var is_player: bool
 var attack_timer: float = 0.0
 var current_health: float
 var attack_range: float
 var is_dead: bool = false
 
+# Used only for magical attack type units
+var projectile_sent: bool = false
+var projectile_time: float = 0.8
+var projectile_scene = preload("res://scenes/Projectile.tscn")
+
+@onready var sprite = $Sprite2D
 @onready var attack_zone = $AttackZone
+@onready var animation_player = $AnimationPlayer
+
+# Standard frame size in LPC
+const FRAME_SIZE = 64
+
+var timer = 0.0
+var current_col = 0
+var is_initialized = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,6 +44,20 @@ func _ready() -> void:
 		attack_range = 40.0
 	else:
 		attack_range = 250.0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if not is_initialized: return
+	
+	timer += delta
+	
+	if timer > 0.1:
+		timer = 0.0
+		current_col = (current_col + 1) % 9
+		
+		var row = 11
+		sprite.frame = (row * sprite.hframes) + current_col
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,6 +88,21 @@ func _physics_process(delta: float) -> void:
 	
 	if should_move:
 		move_and_slide()
+
+
+func setup_sprite(texture):
+	sprite = $Sprite2D
+	
+	# Calculating animation hframes and vframes
+	sprite.hframes = texture.get_width() / FRAME_SIZE
+	sprite.vframes = texture.get_height() / FRAME_SIZE
+	sprite.texture = texture
+	sprite.frame = 0
+	
+	is_initialized = true
+	
+	if not is_player:
+		sprite.flip_h = true
 
 
 func find_closest_target():
@@ -92,15 +137,29 @@ func attack_target(target, delta):
 	
 	attack_timer += delta
 	
-	# Waiting until attack_timer reaches attack_speed
-	if attack_timer >= attack_speed:
+	# Projectile flies for some time
+	if attack_type == "magical" and not projectile_sent and attack_timer >= attack_speed - projectile_time:
 		# Animate
 		play_attack_animation()
 		
-		target.take_damage(attack_damage, attack_type)
+		# Color dependent on the specific unit
+		var color = Color.AZURE if unit_id == 2 else Color.AQUA if unit_id == 5 else Color.FIREBRICK
 		
-		# Reset the counter
+		# Send projectile
+		spawn_projectile(target, color)
+		projectile_sent = true
+	
+	# Waiting until attack_timer reaches attack_speed
+	if attack_timer >= attack_speed:
+		# Do not repeat animation for magical type attack units
+		if attack_type == "physical":
+			play_attack_animation()
+		
+		target.take_damage(attack_damage, "physical")
+		
+		# Reset the counter and projectile status
 		attack_timer = 0.0
+		projectile_sent = false
 
 
 func play_attack_animation():
@@ -130,3 +189,23 @@ func take_damage(amount: float, atk_type: String):
 func die():
 	is_dead = true
 	queue_free()
+
+
+func set_attack_zone(range: float):
+	# Set range for both directions (horizontally)
+	$AttackZone/CollisionShape2D.shape.size.x = 2 * range
+
+
+func spawn_projectile(target, color):
+	var projectile = projectile_scene.instantiate()
+	
+	# Setup the projectile attributes
+	projectile.start_position = global_position
+	projectile.target = target
+	projectile.lifetime = projectile_time
+	
+	# Set position and color
+	projectile.global_position = global_position
+	projectile.modulate = color
+	
+	get_tree().root.add_child(projectile)
