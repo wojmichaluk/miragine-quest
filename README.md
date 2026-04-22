@@ -84,7 +84,8 @@ Różnią się one między sobą przeskalowaniem odpowiednich atrybutów jednost
 #### Wykorzystane narzędzia
 
 Gra jest napisana w silniku Godot.
-Wykorzystane grafiki zostały przygotowane samodzielnie w programie graficznym lub jako dostępne za darmo assety (w takim przypadku jest umieszczona informacja o źródle).
+Wykorzystane grafiki zostały przygotowane samodzielnie w programie graficznym lub jako dostępne za darmo assety.
+Informacja o wykorzystanych zasobach jest dla każdego ich rodzaju zawarta w [folderze `credits`](./credits/).
 
 #### Etapy realizacji projektu
 
