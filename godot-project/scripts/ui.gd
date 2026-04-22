@@ -46,11 +46,17 @@ func create_buttons():
 		style.content_margin_top = 10
 		style.content_margin_bottom = 10
 		
+		var atlas = AtlasTexture.new()
+		
 		if is_player:
-			button.icon = player_icons_textures[id]
+			atlas.atlas = player_icons_textures[id]
+			atlas.region = Rect2(0, 10 * 64, 64, 64)
+			button.icon = atlas
 			left_group.add_child(button)
 		else:
-			button.icon = enemy_icons_textures[id]
+			atlas.atlas = enemy_icons_textures[id]
+			atlas.region = Rect2(0, 10 * 64, 64, 64)
+			button.icon = atlas
 			right_group.add_child(button)
 
 

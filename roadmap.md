@@ -31,7 +31,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - dodanie baz dla obu stron jako celu gry - ich zniszczenie oznacza koniec gry
 
 ### 20 IV - 26 IV
-- 
+- dodanie efektu wypuszczanej "kulki" przy ataku jednostek magicznych
+- zastąpienie grafik dla mapy i jednostek przez znalezione / wygenerowane grafiki LPC (odpowiednia informacja o źródle i autorach została dodana)
+- balans szybkości jednostek
 
 ### 27 IV - 03 V
 - 

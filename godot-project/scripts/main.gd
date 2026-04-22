@@ -67,13 +67,13 @@ func _process(delta: float) -> void:
 
 func setup_bases():
 	var player_base = base_scene.instantiate()
-	player_base.position = Vector2(-4500, 350)
+	player_base.position = Vector2(-4600, 350)
 	player_base.is_player_base = true
 	player_base.get_node("Sprite2D").texture = load("res://assets/bases/player_base.png")
 	add_child(player_base)
 	
 	var enemy_base = base_scene.instantiate()
-	enemy_base.position = Vector2(4500, 350)
+	enemy_base.position = Vector2(4600, 350)
 	enemy_base.is_player_base = false
 	enemy_base.get_node("Sprite2D").texture = load("res://assets/bases/enemy_base.png")
 	add_child(enemy_base)
@@ -143,16 +143,17 @@ func spawn_unit(unit_id: int, is_player: bool):
 	
 	if is_player:
 		new_unit = player_unit_scene.instantiate()
-		new_unit.get_node("Sprite2D").texture = player_textures[unit_id]
 	else:
 		new_unit = enemy_unit_scene.instantiate()
-		new_unit.get_node("Sprite2D").texture = enemy_textures[unit_id]
+		
+	new_unit.is_player = is_player
 	
 	# Setting unit orientation
-	new_unit.position = Vector2(-dir * 4400, randf_range(100, 600))
+	new_unit.position = Vector2(-dir * 4500, randf_range(120, 580))
 	new_unit.direction = dir
 	
 	# Setting unit attributes
+	new_unit.unit_id = unit_id
 	new_unit.unit_name = unit_data["name"]
 	new_unit.speed = unit_data["speed"]
 	new_unit.attack_speed = unit_data["atk_speed"]
@@ -161,6 +162,16 @@ func spawn_unit(unit_id: int, is_player: bool):
 	new_unit.attack_type = unit_data["atk_type"]
 	new_unit.res_phys = unit_data["res_phys"]
 	new_unit.res_mag = unit_data["res_mag"]
+	
+	# Increase attack zone if attack type is magical
+	if new_unit.attack_type == "magical":
+		new_unit.set_attack_zone(500)
+	
+	# Setup sprite texture and animation
+	if is_player:
+		new_unit.setup_sprite(player_textures[unit_id])
+	else:
+		new_unit.setup_sprite(enemy_textures[unit_id])
 	
 	$UnitsNode.add_child(new_unit)
 
