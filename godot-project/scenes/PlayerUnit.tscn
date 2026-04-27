@@ -10,17 +10,17 @@ size = Vector2(200, 1800)
 
 [node name="PlayerUnit" type="CharacterBody2D" unique_id=1532960382 groups=["player"]]
 y_sort_enabled = true
+collision_mask = 2
 script = ExtResource("1_nkwui")
 unit_name = "Player"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1289497864]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=838615674]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=858727482]
 shape = SubResource("RectangleShape2D_34bfp")
 
 [node name="AttackZone" type="Area2D" parent="." unique_id=1301097585]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone" unique_id=482549527]
 shape = SubResource("RectangleShape2D_xgtta")

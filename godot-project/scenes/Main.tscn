@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cc8sv512152hw" path="res://assets/map/forest_tiles.png" id="2_vcsgt"]
 [ext_resource type="Script" uid="uid://dgi4e005184wj" path="res://scripts/camera_2d.gd" id="5_wp0k4"]
 [ext_resource type="Script" uid="uid://dr8onev4b1pvh" path="res://scripts/ui.gd" id="6_bjd11"]
+[ext_resource type="Texture2D" uid="uid://d226w01dbuuw4" path="res://assets/lifebar/lifebar.png" id="6_c01mt"]
+[ext_resource type="Texture2D" uid="uid://e8ucja36ac07" path="res://assets/lifebar/lifebar_border.png" id="6_nxtc6"]
 [ext_resource type="Script" uid="uid://cqj1saa27mvbd" path="res://scripts/minimap.gd" id="7_qmy6f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c01mt"]
@@ -347,10 +349,6 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_vcsgt")
 
-[sub_resource type="Gradient" id="Gradient_nxtc6"]
-offsets = PackedFloat32Array(0, 0.30493274, 0.6547085, 1)
-colors = PackedColorArray(0.57487124, 0, 0, 1, 0.6265344, 0.32702956, 0.02072231, 1, 0.82, 0.7956733, 0.090200014, 1, 0.3238763, 1, 0.5735296, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 bg_color = Color(0.016551722, 0.016551727, 0.016551709, 1)
 
@@ -360,22 +358,6 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-
-[sub_resource type="Gradient" id="Gradient_q8u5g"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_lhr70"]
-gradient = SubResource("Gradient_q8u5g")
-width = 40
-height = 40
-
-[sub_resource type="Gradient" id="Gradient_jlsqs"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_q8u5g"]
-gradient = SubResource("Gradient_jlsqs")
-width = 40
-height = 40
 
 [node name="Main" type="Node2D" unique_id=300323835]
 y_sort_enabled = true
@@ -412,7 +394,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_bjd11")
-health_gradient = SubResource("Gradient_nxtc6")
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI" unique_id=977985668]
 layout_mode = 1
@@ -543,24 +524,34 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EnemyHealth" type="TextureProgressBar" parent="CanvasLayer/UI/ProgressBars" unique_id=1327662281]
-visible = false
-layout_mode = 0
-offset_left = 880.0
-offset_right = 1600.0
-offset_bottom = 40.0
-max_value = 10000.0
-value = 10000.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 1530.0
+offset_top = 45.0
+offset_right = 2250.0
+offset_bottom = 75.0
+grow_horizontal = 0
+rotation = 3.1415927
+step = 0.01
+value = 100.0
 fill_mode = 1
-texture_progress = SubResource("GradientTexture2D_lhr70")
+texture_over = ExtResource("6_nxtc6")
+texture_progress = ExtResource("6_c01mt")
+tint_progress = Color(1, 1, 1, 0.7529412)
 
 [node name="PlayerHealth" type="TextureProgressBar" parent="CanvasLayer/UI/ProgressBars" unique_id=571739484]
-visible = false
 layout_mode = 0
-offset_right = 720.0
-offset_bottom = 40.0
-max_value = 10000.0
-value = 10000.0
-texture_progress = SubResource("GradientTexture2D_q8u5g")
+offset_left = 30.0
+offset_top = 15.0
+offset_right = 750.0
+offset_bottom = 45.0
+step = 0.01
+value = 100.0
+texture_over = ExtResource("6_nxtc6")
+texture_progress = ExtResource("6_c01mt")
+tint_progress = Color(1, 1, 1, 0.7529412)
 
 [node name="UnitsNode" type="Node2D" parent="." unique_id=1498030784]
 y_sort_enabled = true

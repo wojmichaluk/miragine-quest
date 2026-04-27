@@ -18,6 +18,7 @@ var is_player: bool
 var attack_timer: float = 0.0
 var current_health: float
 var attack_range: float
+var state: String = "walk"
 var is_dead: bool = false
 
 # Used only for magical attack type units
@@ -27,7 +28,6 @@ var projectile_scene = preload("res://scenes/Projectile.tscn")
 
 @onready var sprite = $Sprite2D
 @onready var attack_zone = $AttackZone
-@onready var animation_player = $AnimationPlayer
 
 # Standard frame size in LPC
 const FRAME_SIZE = 64
@@ -43,7 +43,7 @@ func _ready() -> void:
 	if attack_type == "physical":
 		attack_range = 40.0
 	else:
-		attack_range = 250.0
+		attack_range = 200.0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -55,6 +55,7 @@ func _process(delta: float) -> void:
 	if timer > 0.1:
 		timer = 0.0
 		current_col = (current_col + 1) % 9
+		print(unit_name, " ", sprite.vframes, " ", sprite.hframes)
 		
 		var row = 11
 		sprite.frame = (row * sprite.hframes) + current_col

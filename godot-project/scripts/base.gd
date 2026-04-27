@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends CharacterBody2D
 
 
 @export var max_health: float = 10000.0
@@ -13,6 +13,13 @@ func _ready():
 	current_health = max_health
 	add_to_group("player" if is_player_base else "enemy")
 	add_to_group("base")
+	
+	if is_player_base:
+		$AttackZone.collision_layer = 1
+		$AttackZone.collision_mask = 2
+	else:
+		$AttackZone.collision_layer = 2
+		$AttackZone.collision_mask = 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
