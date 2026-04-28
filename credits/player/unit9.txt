@@ -65,15 +65,18 @@ hat/helmet/greathelm/male/walk.png
 		- https://opengameart.org/content/lpc-helmets
 		- https://opengameart.org/content/lpc-expanded-hats-facial-helmets
 
-wrists/lace/male/walk/blue.png
+arms/wrists/lace/male/walk.png
+	- Note: Original by bluecarrot16, climb/jump/sit/emote/run by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 	- Authors:
 		- bluecarrot16
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-pirates
 
-arms/bracers/male/walk/steel.png
+arms/bracers/male/walk.png
+	- Note: original by wulax, adjustments by Makrohn, climb/emote by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -81,11 +84,12 @@ arms/bracers/male/walk/steel.png
 	- Authors:
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 
-arms/armour/plate/male/walk/steel.png
-	- Note: original by wulax, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16
+arms/armour/plate/male/walk.png
+	- Note: original by wulax, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16, climb/emote by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -94,11 +98,13 @@ arms/armour/plate/male/walk/steel.png
 		- Michael Whitlock (bigbeargames)
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- bluecarrot16
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 		- http://opengameart.org/content/lpc-clothing-updates
 
-arms/gloves/male/walk/navy.png
+arms/hands/gloves/male/walk.png
 	- Note: metal gloves by wulax, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0

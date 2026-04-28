@@ -66,9 +66,8 @@ hat/helmet/pointed/adult/walk.png
 	- Links:
 		- https://opengameart.org/content/lpc-helmets
 		- https://opengameart.org/content/lpc-expanded-hats-facial-helmets
-
-arms/armour/plate/male/walk/iron.png
-	- Note: original by wulax, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16
+arms/armour/plate/male/walk.png
+	- Note: original by wulax, recolors by bigbeargames; adapted to v3 bases and further recolors by bluecarrot16, climb/emote by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -77,6 +76,8 @@ arms/armour/plate/male/walk/iron.png
 		- Michael Whitlock (bigbeargames)
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- bluecarrot16
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 		- http://opengameart.org/content/lpc-clothing-updates

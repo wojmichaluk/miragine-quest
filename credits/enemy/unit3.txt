@@ -52,7 +52,7 @@ head/faces/male/neutral/walk.png
 		- https://github.com/ElizaWy/LPC/tree/main/Characters/Head
 		- https://opengameart.org/content/ulpc-expanded-expressions
 
-hat/magic/celestial/adult/walk/bluegray.png
+hat/magic/celestial/adult/walk/forest.png
 	- Note: Original by Tracy, Adapted to ULPC by Big Bear Games, reduced colors by Napsio
 	- Licenses:
 		- CC-BY 3.0
@@ -64,7 +64,7 @@ hat/magic/celestial/adult/walk/bluegray.png
 		- https://opengameart.org/content/lpc-celestial-wizard-hats
 		- https://opengameart.org/content/lpc-expanded-hats-facial-helmets
 
-cape/solid/female/walk/bluegray.png
+cape/solid/female/walk/forest.png
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -77,7 +77,7 @@ cape/solid/female/walk/bluegray.png
 		- https://opengameart.org/content/lpc-roman-armor
 		- http://opengameart.org/content/lpc-clothing-updates
 
-cape/solid_behind/walk/bluegray.png
+cape/solid_behind/walk/forest.png
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -89,7 +89,7 @@ cape/solid_behind/walk/bluegray.png
 		- https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
 		- https://opengameart.org/content/lpc-roman-armor
 
-torso/aprons/apron/male/walk/bluegray.png
+torso/aprons/apron/male/walk/forest.png
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -100,7 +100,7 @@ torso/aprons/apron/male/walk/bluegray.png
 	- Links:
 		- https://opengameart.org/content/lpc-aprons
 
-feet/boots/basic/male/walk/bluegray.png
+feet/boots/basic/male/walk/forest.png
 	- Note: original by Nila122, edited for male and v3 bases by bluecarrot16, Jump/Sit/Emote/Run/Revised Combat by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0

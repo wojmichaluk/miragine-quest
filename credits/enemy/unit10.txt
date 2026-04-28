@@ -132,15 +132,17 @@ feet/boots/basic/male/walk/black.png
 		- https://opengameart.org/content/lpc-clothes-and-hair
 		- https://opengameart.org/content/lpc-expanded-socks-shoes
 
-weapon/magic/loop/universal/foreground/walk/iron.png
+weapon/magic/s/universal/foreground/walk/iron.png
+	- Note: Wooden staff by LordNeo, first adapted to LPC by bigbeargames; re-drawn and walk animations added by bluecarrot16
 	- Licenses:
-		- OGA-BY 3.0+
-		- GPL 3.0
-		- CC-BY 4.0
+		- CC0
 	- Authors:
+		- LordNeo
+		- Michael Whitlock (bigbeargames)
 		- bluecarrot16
 	- Links:
-		- https://opengameart.org/content/lpc-more-weapons
+		- https://opengameart.org/content/staff-64-x64
+		- https://opengameart.org/content/lpc-magic-staff
 
 beards/mustache/bigstache/walk.png
 	- Note: Original by Pennomi, repositioning by JaidynReiman.
@@ -154,11 +156,14 @@ beards/mustache/bigstache/walk.png
 	- Links:
 		- https://opengameart.org/content/lpc-base-character-expressions
 
-shoulders/mantal/male/walk/black.png
+shoulders/mantal/male/walk.png
+	- Note: Original by bluecarrot16, climb/jump/sit/emote/run by JaidynReiman
 	- Licenses:
-		- CC-BY-SA 3.0
+		- OGA-BY 3.0
+		- GPL 3.0
 	- Authors:
 		- bluecarrot16
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-pirates
 

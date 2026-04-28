@@ -131,7 +131,7 @@ feet/armour/plate/male/walk/steel.png
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 
-arms/gloves/male/walk/navy.png
+arms/hands/gloves/male/walk.png
 	- Note: metal gloves by wulax, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0

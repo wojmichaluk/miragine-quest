@@ -134,7 +134,7 @@ weapon/sword/glowsword/walk/blue.png
 		- https://opengameart.org/content/lpc-glow-sword
 		- https://opengameart.org/content/lpc-extended-weapon-animations
 
-legs/skirts/legion/male/walk/navy.png
+legs/skirts/legion/male/walk.png
 	- Note: original by Nila122 to legion, adapted to v3 bases by bluecarrot16
 	- Licenses:
 		- OGA-BY 3.0
@@ -148,8 +148,8 @@ legs/skirts/legion/male/walk/navy.png
 		- https://opengameart.org/content/lpc-roman-armor
 		- http://opengameart.org/content/lpc-clothing-updates
 
-shoulders/leather/male/walk/navy.png
-	- Note: adapted to female base by makrohn, adapted to v3 bases by bluecarrot16
+shoulders/pauldrons/male/walk.png
+	- Note: adapted to female base by makrohn, adapted to v3 bases by bluecarrot16, climb/jump/sit/emote/run/revised combat by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -157,6 +157,8 @@ shoulders/leather/male/walk/navy.png
 	- Authors:
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- bluecarrot16
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 		- http://opengameart.org/content/lpc-clothing-updates

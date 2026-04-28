@@ -85,7 +85,7 @@ shoulders/legion/male/walk.png
 	- Links:
 		- https://opengameart.org/content/lpc-roman-armor
 
-arms/gloves/male/walk/red.png
+arms/hands/gloves/male/walk.png
 	- Note: metal gloves by wulax, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
@@ -101,7 +101,8 @@ arms/gloves/male/walk/red.png
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 		- http://opengameart.org/content/lpc-clothing-updates
 
-arms/bracers/male/walk/iron.png
+arms/bracers/male/walk.png
+	- Note: original by wulax, adjustments by Makrohn, climb/emote by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -109,6 +110,7 @@ arms/bracers/male/walk/iron.png
 	- Authors:
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 
@@ -154,15 +156,14 @@ feet/armour/plate/male/walk/copper.png
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 
-weapon/polearm/dragonspear/foreground/walk/walk/iron.png
-	- Note: original "dragon spear" by daneeklu and gr3yh47; adapted to opposite hand and split into layers by bluecarrot16
+weapon/blunt/waraxe/behind/walk/waraxe.png
 	- Licenses:
 		- CC-BY-SA 3.0
+		- GPL 3.0
 	- Authors:
-		- Daniel Eddeland (daneeklu)
-		- gr3yh47
-		- Johannes Sjölund (wulax)
+		- Benjamin K. Smith (BenCreating)
+		- bluecarrot16
+		- Sander Frenken (castelonia)
 	- Links:
-		- https://opengameart.org/content/lpc-weapons-two-bows-a-spear-and-a-trident
-		- https://opengameart.org/content/lpc-extended-weapon-animations
+		- https://opengameart.org/content/lpc-medieval-weapons
 

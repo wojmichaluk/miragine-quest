@@ -85,7 +85,7 @@ shoulders/legion/male/walk.png
 	- Links:
 		- https://opengameart.org/content/lpc-roman-armor
 
-arms/gloves/male/walk/navy.png
+arms/hands/gloves/male/walk.png
 	- Note: metal gloves by wulax, recolors by bigbeargames, adapted to v3 bases by bluecarrot16, added to expanded animations by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
@@ -101,7 +101,8 @@ arms/gloves/male/walk/navy.png
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 		- http://opengameart.org/content/lpc-clothing-updates
 
-arms/bracers/male/walk/steel.png
+arms/bracers/male/walk.png
+	- Note: original by wulax, adjustments by Makrohn, climb/emote by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -109,6 +110,7 @@ arms/bracers/male/walk/steel.png
 	- Authors:
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 

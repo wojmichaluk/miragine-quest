@@ -51,7 +51,8 @@ head/faces/${head}/neutral/walk.png
 		- https://github.com/ElizaWy/LPC/tree/main/Characters/Head
 		- https://opengameart.org/content/ulpc-expanded-expressions
 
-arms/bracers/male/walk/iron.png
+arms/bracers/male/walk.png
+	- Note: original by wulax, adjustments by Makrohn, climb/emote by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -59,6 +60,7 @@ arms/bracers/male/walk/iron.png
 	- Authors:
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
+		- JaidynReiman
 	- Links:
 		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 

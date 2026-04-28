@@ -40,6 +40,31 @@ head/faces/${head}/neutral/walk.png
 		- https://github.com/ElizaWy/LPC/tree/main/Characters/Head
 		- https://opengameart.org/content/ulpc-expanded-expressions
 
+cape/solid/female/walk/charcoal.png
+	- Licenses:
+		- OGA-BY 3.0
+		- CC-BY-SA 3.0
+		- GPL 3.0
+	- Authors:
+		- bluecarrot16
+		- JaidynReiman
+	- Links:
+		- https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
+		- https://opengameart.org/content/lpc-roman-armor
+		- http://opengameart.org/content/lpc-clothing-updates
+
+cape/solid_behind/walk/charcoal.png
+	- Licenses:
+		- OGA-BY 3.0
+		- CC-BY-SA 3.0
+		- GPL 3.0
+	- Authors:
+		- Nila122
+		- JaidynReiman
+	- Links:
+		- https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
+		- https://opengameart.org/content/lpc-roman-armor
+
 torso/waist/obi/male/walk/red.png
 	- Licenses:
 		- OGA-BY 3.0+
@@ -87,7 +112,7 @@ weapon/sword/glowsword/walk/red.png
 		- https://opengameart.org/content/lpc-glow-sword
 		- https://opengameart.org/content/lpc-extended-weapon-animations
 
-legs/skirts/legion/male/walk/red.png
+legs/skirts/legion/male/walk.png
 	- Note: original by Nila122 to legion, adapted to v3 bases by bluecarrot16
 	- Licenses:
 		- OGA-BY 3.0
@@ -101,8 +126,8 @@ legs/skirts/legion/male/walk/red.png
 		- https://opengameart.org/content/lpc-roman-armor
 		- http://opengameart.org/content/lpc-clothing-updates
 
-shoulders/leather/male/walk/red.png
-	- Note: adapted to female base by makrohn, adapted to v3 bases by bluecarrot16
+shoulders/pauldrons/male/walk.png
+	- Note: adapted to female base by makrohn, adapted to v3 bases by bluecarrot16, climb/jump/sit/emote/run/revised combat by JaidynReiman
 	- Licenses:
 		- OGA-BY 3.0
 		- CC-BY-SA 3.0
@@ -110,32 +135,9 @@ shoulders/leather/male/walk/red.png
 	- Authors:
 		- Matthew Krohn (makrohn)
 		- Johannes Sjölund (wulax)
-	- Links:
-		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
-		- http://opengameart.org/content/lpc-clothing-updates
-
-cape/solid/female/walk/charcoal.png
-	- Licenses:
-		- OGA-BY 3.0
-		- CC-BY-SA 3.0
-		- GPL 3.0
-	- Authors:
 		- bluecarrot16
 		- JaidynReiman
 	- Links:
-		- https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
-		- https://opengameart.org/content/lpc-roman-armor
+		- https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
 		- http://opengameart.org/content/lpc-clothing-updates
-
-cape/solid_behind/walk/charcoal.png
-	- Licenses:
-		- OGA-BY 3.0
-		- CC-BY-SA 3.0
-		- GPL 3.0
-	- Authors:
-		- Nila122
-		- JaidynReiman
-	- Links:
-		- https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more
-		- https://opengameart.org/content/lpc-roman-armor
 
