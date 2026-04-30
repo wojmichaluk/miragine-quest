@@ -149,7 +149,7 @@ func spawn_unit(unit_id: int, is_player: bool):
 	new_unit.is_player = is_player
 	
 	# Setting unit orientation
-	new_unit.position = Vector2(-dir * 4500, randf_range(120, 580))
+	new_unit.position = Vector2(-dir * 1500, randf_range(120, 580))
 	new_unit.direction = dir
 	
 	# Setting unit attributes
@@ -160,18 +160,29 @@ func spawn_unit(unit_id: int, is_player: bool):
 	new_unit.max_health = unit_data["hp"]
 	new_unit.attack_damage = unit_data["damage"]
 	new_unit.attack_type = unit_data["atk_type"]
+	new_unit.attack_range = unit_data["atk_range"]
 	new_unit.res_phys = unit_data["res_phys"]
 	new_unit.res_mag = unit_data["res_mag"]
 	
-	# Increase attack zone if attack type is magical
-	if new_unit.attack_type == "magical":
-		new_unit.set_attack_zone(500)
+	# Setting animation frames for walk and attack
+	new_unit.walk_row = unit_data["walk_row"]
+	for frame in unit_data["walk_frames"]:
+		new_unit.walk_frames.append(int(frame))
 	
-	# Setup sprite texture and animation
+	new_unit.attack_row = unit_data["atk_row"]
+	new_unit.wide_attack = unit_data["wide_attack"]
+	for frame in unit_data["atk_frames"]:
+		new_unit.attack_frames.append(int(frame))
+	
+	# Increase attack zone range if attack type is magical
+	if new_unit.attack_type == "magical":
+		new_unit.set_attack_zone(400)
+	
+	# Set sprite texture
 	if is_player:
-		new_unit.setup_sprite(player_textures[unit_id])
+		new_unit.get_node("Sprite2D").texture = player_textures[unit_id]
 	else:
-		new_unit.setup_sprite(enemy_textures[unit_id])
+		new_unit.get_node("Sprite2D").texture = enemy_textures[unit_id]
 	
 	$UnitsNode.add_child(new_unit)
 

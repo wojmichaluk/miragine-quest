@@ -36,7 +36,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - balans szybkości jednostek
 
 ### 27 IV - 03 V
-- 
+- przywrócenie w odświeżonej wizualnie wersji pasków życia dla baz gracza i przeciwnika
+- poprawa grafik (spritesheetów LPC) - problemy z przezroczystością tła oraz przesunięciem klatek chodzenia / ataku w niektórych przypadkach
+- początkowe próby przygotowania klatek animacji dla chodzenia, ataku i śmierci
 
 ### 04 V - 10 V
 - 

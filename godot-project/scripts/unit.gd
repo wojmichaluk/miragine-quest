@@ -10,14 +10,21 @@ extends CharacterBody2D
 @export var max_health: float
 @export var attack_damage: float
 @export var attack_type: String
+@export var attack_range: int
 @export var res_phys: int
 @export var res_mag: int
 @export var direction: int
 
+# Animation attributes
+@export var walk_row: int
+@export var walk_frames: Array[int] = []
+@export var attack_row: int
+@export var attack_frames: Array[int] = []
+@export var wide_attack: int
+
 var is_player: bool
 var attack_timer: float = 0.0
 var current_health: float
-var attack_range: float
 var state: String = "walk"
 var is_dead: bool = false
 
@@ -32,33 +39,48 @@ var projectile_scene = preload("res://scenes/Projectile.tscn")
 # Standard frame size in LPC
 const FRAME_SIZE = 64
 
+# Common animation spritesheet frames
+var death_row = 20
+var death_frames = [0, 1, 2, 3, 4, 5]
+
 var timer = 0.0
-var current_col = 0
-var is_initialized = false
+var frame_time = 0.1
+var current_frame_index = 0
+var is_ready = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_health = max_health
+	reset_sprite_frames()
 	
-	if attack_type == "physical":
-		attack_range = 40.0
-	else:
-		attack_range = 200.0
+	if not is_player:
+		sprite.flip_h = true
+		
+	is_ready = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if not is_initialized: return
+	if not is_ready or state != "walk": return
 	
 	timer += delta
 	
-	if timer > 0.1:
+	if timer >= frame_time:
 		timer = 0.0
-		current_col = (current_col + 1) % 9
-		print(unit_name, " ", sprite.vframes, " ", sprite.hframes)
-		
-		var row = 11
-		sprite.frame = (row * sprite.hframes) + current_col
+		sprite.frame = (walk_row * sprite.hframes) + walk_frames[current_frame_index]
+		current_frame_index = (current_frame_index + 1) % walk_frames.size()
+
+
+func reset_sprite_frames():
+	sprite.region_enabled = false
+	sprite.offset.x = 0
+	
+	# Calculating animation hframes and vframes
+	sprite.hframes = sprite.texture.get_width() / FRAME_SIZE
+	sprite.vframes = sprite.texture.get_height() / FRAME_SIZE
+	
+	sprite.frame = 0
+	current_frame_index = 0
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -78,32 +100,28 @@ func _physics_process(delta: float) -> void:
 		
 		if distance_to_target > attack_range:
 			velocity = direction_to_target * 0.75 * speed
+			
+			# Return to "walk" state
+			if state == "attack":
+				if wide_attack == 1: reset_sprite_frames()
+				state = "walk"
 		else:
 			velocity = Vector2.ZERO
+			state = "attack"
 			attack_target(target_to_attack, delta)
 			should_move = false
 	else:
 		attack_timer = 0.0
 		velocity.x = speed * direction
 		velocity.y = 0
+		
+		# Return to "walk" state
+		if state == "attack":
+			if wide_attack == 1: reset_sprite_frames()
+			state = "walk"
 	
 	if should_move:
 		move_and_slide()
-
-
-func setup_sprite(texture):
-	sprite = $Sprite2D
-	
-	# Calculating animation hframes and vframes
-	sprite.hframes = texture.get_width() / FRAME_SIZE
-	sprite.vframes = texture.get_height() / FRAME_SIZE
-	sprite.texture = texture
-	sprite.frame = 0
-	
-	is_initialized = true
-	
-	if not is_player:
-		sprite.flip_h = true
 
 
 func find_closest_target():
@@ -164,17 +182,35 @@ func attack_target(target, delta):
 
 
 func play_attack_animation():
+	var frames_num = attack_frames.size()
+	
 	# Creating tween engine
 	var tween = create_tween()
 	
-	var sprite = $Sprite2D
-	
-	# Lean 15 (-15) degrees, towards enemy
-	var target_rotation = deg_to_rad(15 * direction)
-	
-	# Animation - lean and go back
-	tween.tween_property(sprite, "rotation", target_rotation, 0.1).set_trans(Tween.TRANS_SINE)
-	tween.tween_property(sprite, "rotation", 0.0, 0.2).set_trans(Tween.TRANS_SINE)
+	if wide_attack == 1:
+		# Temporarily change frames settings
+		sprite.hframes = 1
+		sprite.vframes = 1
+		sprite.region_enabled = true
+		
+		tween.tween_method(
+			func(index):
+				var frame = attack_frames[index]
+				sprite.region_rect = Rect2(frame * FRAME_SIZE, attack_row * FRAME_SIZE, 2 * FRAME_SIZE, FRAME_SIZE)
+				sprite.offset.x = FRAME_SIZE / 2 if is_player else -FRAME_SIZE / 2,
+			0,
+			frames_num - 1,
+			frames_num * frame_time
+		)
+	else:
+		tween.tween_method(
+			func(index):
+				var frame = attack_frames[index]
+				sprite.frame = (attack_row * sprite.hframes) + frame,
+			0,
+			frames_num - 1, 
+			frames_num * frame_time
+		)
 
 
 func take_damage(amount: float, atk_type: String):
@@ -189,7 +225,27 @@ func take_damage(amount: float, atk_type: String):
 
 func die():
 	is_dead = true
-	queue_free()
+	state = "dead"
+	var frames_num = death_frames.size()
+	
+	# Ensure that hframes and vframes are set correctly
+	if wide_attack == 1:
+		reset_sprite_frames()
+	
+	# Play death animation
+	var tween = create_tween()
+	
+	tween.tween_method(
+		func(index):
+			var frame = death_frames[index]
+			sprite.frame = (death_row * sprite.hframes) + frame,
+		0,
+		frames_num - 1, 
+		frames_num * frame_time
+	)
+	
+	# Call queue_free() after animation has ended
+	tween.finished.connect(queue_free)
 
 
 func set_attack_zone(range: float):

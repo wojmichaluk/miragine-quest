@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://q6g0f8ws6goq" path="res://scripts/unit.gd" id="1_nkwui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_34bfp"]
-size = Vector2(32, 32)
+size = Vector2(24, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgtta"]
-size = Vector2(200, 1800)
+size = Vector2(300, 1800)
 
 [node name="PlayerUnit" type="CharacterBody2D" unique_id=1532960382 groups=["player"]]
 y_sort_enabled = true

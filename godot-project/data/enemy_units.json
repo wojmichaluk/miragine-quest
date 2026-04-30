@@ -8,8 +8,14 @@
 	"hp": 100,
 	"damage": 20,
 	"atk_type": "physical",
+	"atk_range": 35,
 	"res_phys": 1,
-	"res_mag": 0
+	"res_mag": 0,
+	"walk_row": 11,
+	"walk_frames": [0, 1, 2, 3, 4, 5, 6, 7, 8, 0],
+	"atk_row": 15,
+	"atk_frames": [0, 1, 2, 3, 4, 5, 0],
+	"wide_attack": 0
   },
   "1": {
 	"name": "Przeklęty rycerz",
@@ -20,8 +26,14 @@
 	"hp": 180,
 	"damage": 30,
 	"atk_type": "physical",
+	"atk_range": 45,
 	"res_phys": 3,
-	"res_mag": 0
+	"res_mag": 0,
+	"walk_row": 11,
+	"walk_frames": [0, 1, 2, 3, 4, 5, 6, 7, 8, 0],
+	"atk_row": 60,
+	"atk_frames": [0, 2, 4, 6, 8, 10, 0],
+	"wide_attack": 1
   },
   "2": {
 	"name": "Adept ziemi",
@@ -32,8 +44,14 @@
 	"hp": 80,
 	"damage": 50,
 	"atk_type": "magical",
+	"atk_range": 180,
 	"res_phys": 0,
-	"res_mag": 3
+	"res_mag": 3,
+	"walk_row": 11,
+	"walk_frames": [1, 2, 3, 4, 5, 6, 7, 8, 1],
+	"atk_row": 7,
+	"atk_frames": [0, 1, 2, 3, 4, 5, 6, 7, 0],
+	"wide_attack": 0
   },
   "3": {
 	"name": "Krwisty zabójca",
@@ -44,8 +62,14 @@
 	"hp": 150,
 	"damage": 40,
 	"atk_type": "physical",
+	"atk_range": 60,
 	"res_phys": 2,
-	"res_mag": 2
+	"res_mag": 2,
+	"walk_row": 60,
+	"walk_frames": [0, 2, 4, 6, 8, 10, 12, 14, 16],
+	"atk_row": 68,
+	"atk_frames": [0, 2, 4, 6, 8, 10, 0],
+	"wide_attack": 1
   },
   "4": {
 	"name": "Mroczny wojownik",
@@ -56,8 +80,14 @@
 	"hp": 300,
 	"damage": 40,
 	"atk_type": "physical",
+	"atk_range": 45,
 	"res_phys": 5,
-	"res_mag": 0
+	"res_mag": 0,
+	"walk_row": 11,
+	"walk_frames": [1, 2, 3, 4, 5, 6, 7, 1],
+	"atk_row": 7,
+	"atk_frames": [0, 1, 2, 3, 4, 5, 6, 7, 0],
+	"wide_attack": 0
   },
   "5": {
 	"name": "Władca ognia",
@@ -68,8 +98,14 @@
 	"hp": 150,
 	"damage": 60,
 	"atk_type": "magical",
+	"atk_range": 200,
 	"res_phys": 0,
-	"res_mag": 4
+	"res_mag": 4,
+	"walk_row": 11,
+	"walk_frames": [1, 2, 3, 4, 5, 6, 7, 8, 1],
+	"atk_row": 64,
+	"atk_frames": [1, 4, 7, 10, 13, 16, 1],
+	"wide_attack": 1
   },
   "6": {
 	"name": "Upadły mnich",
@@ -80,8 +116,14 @@
 	"hp": 250,
 	"damage": 100,
 	"atk_type": "physical",
+	"atk_range": 30,
 	"res_phys": 2,
-	"res_mag": 1
+	"res_mag": 1,
+	"walk_row": 11,
+	"walk_frames": [0, 1, 2, 3, 4, 5, 6, 7, 8, 0],
+	"atk_row": 15,
+	"atk_frames": [0, 1, 2, 3, 4, 5, 0],
+	"wide_attack": 0
   },
   "7": {
 	"name": "Troll żniwiarz",
@@ -92,8 +134,14 @@
 	"hp": 270,
 	"damage": 80,
 	"atk_type": "physical",
+	"atk_range": 50,
 	"res_phys": 0,
-	"res_mag": 0
+	"res_mag": 0,
+	"walk_row": 11,
+	"walk_frames": [1, 2, 3, 4, 5, 6, 7, 8, 1],
+	"atk_row": 64,
+	"atk_frames": [1, 4, 7, 10, 13, 16, 1],
+	"wide_attack": 1
   },
   "8": {
 	"name": "Oddany złoczyńca",
@@ -104,8 +152,14 @@
 	"hp": 600,
 	"damage": 150,
 	"atk_type": "physical",
+	"atk_range": 45,
 	"res_phys": 7,
-	"res_mag": 0
+	"res_mag": 0,
+	"walk_row": 60,
+	"walk_frames": [0, 2, 4, 6, 8, 10, 12, 14, 16, 0],
+	"atk_row": 68,
+	"atk_frames": [0, 2, 4, 6, 8, 10, 0],
+	"wide_attack": 1
   },
   "9": {
 	"name": "Władca otchłani",
@@ -116,8 +170,14 @@
 	"hp": 400,
 	"damage": 120,
 	"atk_type": "magical",
+	"atk_range": 240,
 	"res_phys": 0,
-	"res_mag": 6
+	"res_mag": 6,
+	"walk_row": 11,
+	"walk_frames": [1, 2, 3, 4, 5, 6, 7, 8, 1],
+	"atk_row": 64,
+	"atk_frames": [1, 4, 7, 10, 13, 16, 1],
+	"wide_attack": 1
   },
   "10": {
 	"name": "Strażnik czarnoksięstwa",
@@ -128,8 +188,14 @@
 	"hp": 1500,
 	"damage": 250,
 	"atk_type": "physical",
+	"atk_range": 45,
 	"res_phys": 4,
-	"res_mag": 2
+	"res_mag": 2,
+	"walk_row": 11,
+	"walk_frames": [0, 1, 2, 3, 4, 5, 6, 7, 8, 0],
+	"atk_row": 64,
+	"atk_frames": [1, 4, 7, 10, 13, 16, 1],
+	"wide_attack": 1
   },
   "11": {
 	"name": "Siewca śmierci",
@@ -140,7 +206,13 @@
 	"hp": 2400,
 	"damage": 300,
 	"atk_type": "physical",
+	"atk_range": 55,
 	"res_phys": 3,
-	"res_mag": 3
+	"res_mag": 3,
+	"walk_row": 11,
+	"walk_frames": [1, 2, 3, 4, 5, 6, 7, 8, 1],
+	"atk_row": 64,
+	"atk_frames": [1, 4, 7, 10, 13, 16, 1],
+	"wide_attack": 1
   }
 }
