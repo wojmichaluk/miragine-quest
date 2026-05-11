@@ -33,6 +33,10 @@ signal gold_changed(new_amount, is_player)
 signal time_changed(seconds_left, is_shopping)
 signal weight_changed(current, maximum, is_player)
 
+# Spawn unit utility
+var active_unit_id
+var spawn_delay_per_weight = 0.05
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Load textures for player units and enemy units
@@ -55,6 +59,9 @@ func _ready() -> void:
 	time_changed.emit(current_time, is_shopping_phase())
 	weight_changed.emit(player_current_weight, max_weight_limit, true)
 	weight_changed.emit(enemy_current_weight, max_weight_limit, false)
+	
+	# Initial player unit selection
+	select_active_unit(0)
 	
 	# Initial AI purchase
 	enemy_ai_purchase()
@@ -97,10 +104,10 @@ func load_units_data(file_path, is_player):
 		var file = FileAccess.open(file_path, FileAccess.READ)
 		var json_string = file.get_as_text()
 		file.close()
-
+		
 		var json = JSON.new()
 		var error = json.parse(json_string)
-
+		
 		if error == OK:
 			if is_player:
 				player_units_data = json.data
@@ -108,14 +115,25 @@ func load_units_data(file_path, is_player):
 				enemy_units_data = json.data
 
 
+func select_active_unit(unit_id):
+	active_unit_id = unit_id
+	var unit_data = player_units_data[str(unit_id)]
+	var spawn_delay = spawn_delay_per_weight * unit_data["weight"]
+	$CanvasLayer/UI.update_unit_selection(unit_id, spawn_delay)
+
+
 func spawn_unit(unit_id: int, is_player: bool):
-	# Check if can buy unit
-	if not is_shopping_phase() or not can_afford(unit_id, is_player):
-		return
+	# Check if can buy unit (shopping_phase)
+	if not is_shopping_phase():
+		return 0
+	
+	# Check if can buy unit (gold cost)
+	if not can_afford(unit_id, is_player):
+		return 1
 	
 	# Check if unit weight limit is respected
 	if not weight_fits(unit_id, is_player):
-		return
+		return 2
 	
 	# Choosing proper unit data
 	var unit_data: Dictionary
@@ -149,7 +167,7 @@ func spawn_unit(unit_id: int, is_player: bool):
 	new_unit.is_player = is_player
 	
 	# Setting unit orientation
-	new_unit.position = Vector2(-dir * 1500, randf_range(120, 580))
+	new_unit.position = Vector2(-dir * 1000, randf_range(120, 580))
 	new_unit.direction = dir
 	
 	# Setting unit attributes
@@ -166,11 +184,14 @@ func spawn_unit(unit_id: int, is_player: bool):
 	
 	# Setting animation frames for walk and attack
 	new_unit.walk_row = unit_data["walk_row"]
+	new_unit.wide_walk = unit_data["wide_walk"]
+	
 	for frame in unit_data["walk_frames"]:
 		new_unit.walk_frames.append(int(frame))
 	
 	new_unit.attack_row = unit_data["atk_row"]
-	new_unit.wide_attack = unit_data["wide_attack"]
+	new_unit.wide_atk = unit_data["wide_atk"]
+	
 	for frame in unit_data["atk_frames"]:
 		new_unit.attack_frames.append(int(frame))
 	
@@ -185,6 +206,7 @@ func spawn_unit(unit_id: int, is_player: bool):
 		new_unit.get_node("Sprite2D").texture = enemy_textures[unit_id]
 	
 	$UnitsNode.add_child(new_unit)
+	return 3
 
 
 func is_shopping_phase() -> bool:
@@ -209,11 +231,7 @@ func _on_game_timer_timeout() -> void:
 	current_time -= 1.0
 	time_changed.emit(int(current_time), is_shopping_phase())
 	
-	if current_time == round_time - shopping_phase_duration:
-		$CanvasLayer/UI.set_buttons_enabled(false)
-	
 	if current_time <= 0:
-		$CanvasLayer/UI.set_buttons_enabled(true)
 		start_new_round()
 
 
@@ -233,12 +251,15 @@ func start_new_round():
 	weight_changed.emit(player_current_weight, max_weight_limit, true)
 	weight_changed.emit(enemy_current_weight, max_weight_limit, false)
 	
+	# Player unit selection
+	select_active_unit(active_unit_id)
+	
 	# Let the 'AI' make a purchase
 	enemy_ai_purchase()
 
 
 func enemy_ai_purchase():
 	# Simple AI: buy random units
-	for i in range(20):
+	for i in range(50):
 		spawn_unit(randi_range(0, 11), false)
 		await get_tree().create_timer(0.2).timeout

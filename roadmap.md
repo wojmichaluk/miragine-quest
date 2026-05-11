@@ -45,7 +45,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - aktualizacja wybranych klatek dla postaci, aby ruch wyglądał naturalnie
 
 ### 11 V - 17 V
-- 
+- finalny balans szybkości jednostek (zmniejszenie rozbieżności)
+- automatyczne wysyłanie jednostek gracza po zaznaczeniu jednostki
+- zablokowanie możliwości wysyłania jednostek przeciwnika przez gracza
 
 ### 18 V - 24 V
 - 

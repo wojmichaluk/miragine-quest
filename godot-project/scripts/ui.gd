@@ -4,6 +4,7 @@ extends Control
 var player_icons_textures = []
 var enemy_icons_textures = []
 var unit_button_scene = preload("res://scenes/UnitButton.tscn")
+var active_unit_id
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,6 +14,9 @@ func _ready() -> void:
 		enemy_icons_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
 	create_buttons()
+	
+	# Enable player buttons and disable enemy buttons
+	set_buttons()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,6 +61,21 @@ func create_buttons():
 			right_group.add_child(button)
 
 
+func set_buttons():
+	var player_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridLeft.get_children()
+	var enemy_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridRight.get_children()
+	
+	for button in player_unit_buttons:
+		if button is Button:
+			button.disabled = false
+			button.modulate.a = 1.0
+			
+	for button in enemy_unit_buttons:
+		if button is Button:
+			button.disabled = true
+			button.modulate.a = 0.5
+
+
 func update_gold_display(amount: int, is_player: bool):
 	if is_player:
 		$Labels/PlayerGold.text = "Złoto: " + str(amount)
@@ -81,21 +100,17 @@ func update_weight_display(current: int, maximum: int, is_player: bool):
 		$Labels/EnemyCapacity.text = "Armia: " + str(current) + " / " + str(maximum)
 
 
-func set_buttons_enabled(enabled: bool):
-	var player_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridLeft.get_children()
-	var enemy_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridRight.get_children()
-	
-	# Joining unit buttons together
-	var unit_buttons = player_unit_buttons + enemy_unit_buttons
-	
-	for button in unit_buttons:
-		if button is Button:
-			button.disabled = !enabled
-			button.modulate.a = 1.0 if enabled else 0.5
-
-
 func update_base_hp(current: float, maximum: float, is_player: bool):
 	var hp_bar = $ProgressBars/PlayerHealth if is_player else $ProgressBars/EnemyHealth
 	var target_value = 100 * (current / maximum)
 	var tween = create_tween()
 	tween.tween_property(hp_bar, "value", target_value, 0.3).set_trans(Tween.TRANS_SINE)
+
+
+func update_unit_selection(unit_id, spawn_delay):
+	active_unit_id = unit_id
+	var spawn_status = -1
+	
+	while spawn_status != 0 and unit_id == active_unit_id:
+		spawn_status = get_tree().current_scene.spawn_unit(unit_id, true)
+		await get_tree().create_timer(spawn_delay).timeout
