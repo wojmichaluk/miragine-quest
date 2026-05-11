@@ -41,7 +41,8 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - początkowe próby przygotowania klatek animacji dla chodzenia, ataku i śmierci
 
 ### 04 V - 10 V
-- 
+- poprawienie klatek animacji dla chodzenia i ataku (ponowne ich przesunięcie w spritesheetach LPC)
+- aktualizacja wybranych klatek dla postaci, aby ruch wyglądał naturalnie
 
 ### 11 V - 17 V
 - 
