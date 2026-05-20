@@ -173,13 +173,15 @@ func find_closest_target():
 	for body in bodies:
 		if body == self:
 			continue
-		elif body.is_in_group("base"):
-			base = body
-			continue
 		
 		# Checking if it is an enemy
 		if (is_in_group("player") and body.is_in_group("enemy")) or \
 			(is_in_group("enemy") and body.is_in_group("player")):
+			# Checking if it is a base
+			if body.is_in_group("base"):
+				base = body
+				continue
+				
 			var metric_dist = metric_distance(body)
 			
 			if metric_dist < min_metric_dist:
@@ -204,7 +206,10 @@ func metric_distance(target):
 	var diff_x = abs(global_position.x - target.global_position.x)
 	var diff_y = abs(global_position.y - target.global_position.y)
 	
-	return diff_x + 4 * diff_y
+	if attack_type == "physical":
+		return diff_x + 10 * diff_y
+	else:
+		return diff_x + diff_y
 
 
 func shifted_direction_to_target(target):

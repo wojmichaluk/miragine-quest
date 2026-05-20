@@ -4,7 +4,10 @@ extends Control
 var player_icons_textures = []
 var enemy_icons_textures = []
 var unit_button_scene = preload("res://scenes/UnitButton.tscn")
-var active_unit_id
+var active_unit_id = -1
+
+@onready var left_group = $Panel/MarginContainer/HBoxContainer/GridLeft
+@onready var right_group = $Panel/MarginContainer/HBoxContainer/GridRight
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,22 +28,17 @@ func _process(delta: float) -> void:
 
 
 func create_buttons():
-	var left_group = $Panel/MarginContainer/HBoxContainer/GridLeft
-	var right_group = $Panel/MarginContainer/HBoxContainer/GridRight
-	
 	for i in range(24):
 		var button = unit_button_scene.instantiate()
 		var id = (i % 12)
 		var is_player = i < 12
 		
-		# Setting button data
+		# Setting button data and style options
 		button.unit_id = id
-		button.is_player_side = is_player
-		
-		# Setting button style options
 		button.expand_icon = true
 		button.icon_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 		button.vertical_icon_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+		
 		var style = button.get_theme_stylebox("normal")
 		style.content_margin_left = 10
 		style.content_margin_right = 10
@@ -62,8 +60,8 @@ func create_buttons():
 
 
 func set_buttons():
-	var player_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridLeft.get_children()
-	var enemy_unit_buttons = $Panel/MarginContainer/HBoxContainer/GridRight.get_children()
+	var player_unit_buttons = left_group.get_children()
+	var enemy_unit_buttons = right_group.get_children()
 	
 	for button in player_unit_buttons:
 		if button is Button:
@@ -108,9 +106,22 @@ func update_base_hp(current: float, maximum: float, is_player: bool):
 
 
 func update_unit_selection(unit_id, spawn_delay):
-	active_unit_id = unit_id
 	var spawn_status = -1
+	var player_unit_buttons = left_group.get_children()
+	
+	# Clear previous selection
+	if active_unit_id != -1 and active_unit_id != unit_id:
+		player_unit_buttons[active_unit_id].is_active = false
+	
+	active_unit_id = unit_id
+	var button = player_unit_buttons[unit_id]
+	button.is_active = true
 	
 	while spawn_status != 0 and unit_id == active_unit_id:
 		spawn_status = get_tree().current_scene.spawn_unit(unit_id, true)
+		
+		# Flash if unit has been spawned
+		if spawn_status == 2:
+			button.trigger_flash(0.5 * spawn_delay)
+		
 		await get_tree().create_timer(spawn_delay).timeout

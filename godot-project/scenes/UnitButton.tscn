@@ -5,6 +5,19 @@
 [node name="UnitButton" type="Button" unique_id=1850882393]
 custom_minimum_size = Vector2(85, 85)
 size_flags_vertical = 0
+focus_mode = 0
 script = ExtResource("1_t3wia")
+
+[node name="SelectionFrame" type="ReferenceRect" parent="." unique_id=622310905]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(1, 0.96503836, 0.9590097, 1)
+border_width = 3.0
+editor_only = false
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

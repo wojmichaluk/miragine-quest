@@ -536,7 +536,6 @@ grow_horizontal = 0
 rotation = 3.1415927
 step = 0.01
 value = 100.0
-fill_mode = 1
 texture_over = ExtResource("6_nxtc6")
 texture_progress = ExtResource("6_c01mt")
 tint_progress = Color(1, 1, 1, 0.7529412)

@@ -76,13 +76,13 @@ func setup_bases():
 	var player_base = base_scene.instantiate()
 	player_base.position = Vector2(-4600, 350)
 	player_base.is_player_base = true
-	player_base.get_node("Sprite2D").texture = load("res://assets/bases/player_base.png")
+	player_base.get_node("Sprite2D").texture = load("res://assets/bases/player.png")
 	add_child(player_base)
 	
 	var enemy_base = base_scene.instantiate()
 	enemy_base.position = Vector2(4600, 350)
 	enemy_base.is_player_base = false
-	enemy_base.get_node("Sprite2D").texture = load("res://assets/bases/enemy_base.png")
+	enemy_base.get_node("Sprite2D").texture = load("res://assets/bases/enemy.png")
 	add_child(enemy_base)
 	
 	# Connecting signals to UI
@@ -127,13 +127,9 @@ func spawn_unit(unit_id: int, is_player: bool):
 	if not is_shopping_phase():
 		return 0
 	
-	# Check if can buy unit (gold cost)
-	if not can_afford(unit_id, is_player):
+	# Check if can buy unit (afford and respect weight limit)
+	if not can_afford(unit_id, is_player) or not weight_fits(unit_id, is_player):
 		return 1
-	
-	# Check if unit weight limit is respected
-	if not weight_fits(unit_id, is_player):
-		return 2
 	
 	# Choosing proper unit data
 	var unit_data: Dictionary
@@ -167,7 +163,7 @@ func spawn_unit(unit_id: int, is_player: bool):
 	new_unit.is_player = is_player
 	
 	# Setting unit orientation
-	new_unit.position = Vector2(-dir * 1000, randf_range(120, 580))
+	new_unit.position = Vector2(-dir * 1500, randf_range(120, 580))
 	new_unit.direction = dir
 	
 	# Setting unit attributes
@@ -206,7 +202,9 @@ func spawn_unit(unit_id: int, is_player: bool):
 		new_unit.get_node("Sprite2D").texture = enemy_textures[unit_id]
 	
 	$UnitsNode.add_child(new_unit)
-	return 3
+	
+	# OK status
+	return 2
 
 
 func is_shopping_phase() -> bool:
