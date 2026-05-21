@@ -54,6 +54,10 @@ func _ready() -> void:
 	current_health = max_health
 	reset_attack_timer()
 	
+	# Larger attack zone for magical units
+	if attack_type == "magical":
+		$AttackZone/CollisionShape2D.shape.size.x = 800
+	
 	if wide_walk == 0:
 		set_sprite_frames_normal()
 	else:
@@ -133,6 +137,7 @@ func _physics_process(delta: float) -> void:
 				current_frame_index = 0
 				sprite.flip_h = not is_player
 				state = "walk"
+				reset_attack_timer()
 		else:
 			should_move = false
 			velocity = Vector2.ZERO
@@ -143,7 +148,6 @@ func _physics_process(delta: float) -> void:
 			
 			attack_target(target_to_attack, delta)
 	else:
-		reset_attack_timer()
 		velocity.x = speed * direction
 		velocity.y = 0
 		
@@ -155,6 +159,7 @@ func _physics_process(delta: float) -> void:
 			current_frame_index = 0
 			sprite.flip_h = not is_player
 			state = "walk"
+			reset_attack_timer()
 	
 	if should_move:
 		move_and_slide()
@@ -217,9 +222,9 @@ func shifted_direction_to_target(target):
 	var angle_to_target = abs(vector_to_target.angle())
 	
 	if is_player:
-		vector_to_target.x -= 3 * FRAME_SIZE * angle_to_target / PI
+		vector_to_target.x -= 2 * FRAME_SIZE * angle_to_target / PI
 	else:
-		vector_to_target.x += 3 * FRAME_SIZE * (PI - angle_to_target) / PI
+		vector_to_target.x += 2 * FRAME_SIZE * (PI - angle_to_target) / PI
 	
 	return vector_to_target.normalized()
 
@@ -284,11 +289,28 @@ func play_attack_animation():
 		)
 
 
+func spawn_projectile(target, color):
+	var projectile = projectile_scene.instantiate()
+	
+	# Setup the projectile attributes
+	projectile.start_position = global_position
+	projectile.target = target
+	projectile.lifetime = projectile_time
+	
+	# Set position and color
+	projectile.global_position = global_position
+	projectile.modulate = color
+	
+	get_tree().root.add_child(projectile)
+
+
 func take_damage(amount: float, atk_type: String):
 	if atk_type == "physical":
 		current_health -= amount * (10.0 - res_phys) / 10.0
-	else:
+	elif atk_type == "magical":
 		current_health -= amount * (10.0 - res_mag) / 10.0
+	else:
+		current_health -= amount
 
 	if current_health <= 0 and state != "dead":
 		state = "dead"
@@ -319,23 +341,3 @@ func die():
 	
 	# Call queue_free() after animation has ended
 	tween.finished.connect(queue_free)
-
-
-func set_attack_zone(atk_range: float):
-	# Set range for both directions (horizontally)
-	$AttackZone/CollisionShape2D.shape.size.x = 2 * atk_range
-
-
-func spawn_projectile(target, color):
-	var projectile = projectile_scene.instantiate()
-	
-	# Setup the projectile attributes
-	projectile.start_position = global_position
-	projectile.target = target
-	projectile.lifetime = projectile_time
-	
-	# Set position and color
-	projectile.global_position = global_position
-	projectile.modulate = color
-	
-	get_tree().root.add_child(projectile)

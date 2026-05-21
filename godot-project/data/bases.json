@@ -1,0 +1,30 @@
+{
+  "enemy": {
+    "name": "Arcyzły mag O'Valish",
+    "atk_speed": 1.5,
+    "hp": 10000,
+    "damage": 500,
+    "atk_type": "special",
+    "atk_range": 300,
+    "idle_row": 7,
+    "idle_frames": [0, 1, 2, 3, 4, 5, 6, 7],
+    "wide_idle": 0,
+    "atk_row": 63,
+    "atk_frames": [0, 3, 6, 9, 12, 15, 18, 21, 0],
+    "wide_atk": 1
+  },
+  "player": {
+    "name": "Królewicz Bajtomir",
+    "atk_speed": 1.5,
+    "hp": 10000,
+    "damage": 500,
+    "atk_type": "special",
+    "atk_range": 300,
+    "idle_row": 7,
+    "idle_frames": [0, 1, 2, 3, 4, 5, 6, 7],
+    "wide_idle": 0,
+    "atk_row": 19,
+    "atk_frames": [4, 5, 6, 7, 8, 9, 10, 11, 4],
+    "wide_atk": 0
+  }
+}

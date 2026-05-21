@@ -50,7 +50,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - zablokowanie możliwości wysyłania jednostek przeciwnika przez gracza
 
 ### 18 V - 24 V
-- 
+- dodanie właściwych grafik (zamiast czerwonego / niebieskiego prostokąta) dla "baz"
+- dodanie zaznaczenia wybranej jednostki (obwódka, migotanie na zielono przy tworzeniu armii na początku rundy)
+- dodanie zachowania i przygotowanie mechaniki baz na wzór regularnych jednostek
 
 ### 25 V - 31 V
 - 

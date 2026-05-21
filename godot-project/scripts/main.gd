@@ -7,8 +7,8 @@ var enemy_unit_scene = preload("res://scenes/EnemyUnit.tscn")
 var base_scene = preload("res://scenes/Base.tscn")
 
 # Player and enemy textures
-var player_textures = []
-var enemy_textures = []
+var player_units_textures = []
+var enemy_units_textures = []
 
 # Currency
 var player_gold: int = 5000
@@ -41,8 +41,8 @@ var spawn_delay_per_weight = 0.05
 func _ready() -> void:
 	# Load textures for player units and enemy units
 	for i in range(1, 13):
-		player_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
-		enemy_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
+		player_units_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
+		enemy_units_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
 	# Setup bases and load all units
 	setup_bases()
@@ -73,21 +73,67 @@ func _process(delta: float) -> void:
 
 
 func setup_bases():
-	var player_base = base_scene.instantiate()
-	player_base.position = Vector2(-4600, 350)
-	player_base.is_player_base = true
-	player_base.get_node("Sprite2D").texture = load("res://assets/bases/player.png")
-	add_child(player_base)
+	var bases_data_path = "res://data/bases.json"
+	var bases_data: Dictionary = {}
 	
-	var enemy_base = base_scene.instantiate()
-	enemy_base.position = Vector2(4600, 350)
-	enemy_base.is_player_base = false
-	enemy_base.get_node("Sprite2D").texture = load("res://assets/bases/enemy.png")
+	# Load bases data
+	if FileAccess.file_exists(bases_data_path):
+		var file = FileAccess.open(bases_data_path, FileAccess.READ)
+		var json_string = file.get_as_text()
+		file.close()
+		
+		var json = JSON.new()
+		var error = json.parse(json_string)
+		
+		if error == OK:
+			bases_data = json.data
+	
+	# Initialize player and enemy bases
+	var player_base = initialize_base(bases_data["player"], true)
+	var enemy_base = initialize_base(bases_data["enemy"], false)
+	
+	# Adding bases to scene
+	add_child(player_base)
 	add_child(enemy_base)
 	
 	# Connecting signals to UI
 	player_base.base_health_changed.connect($CanvasLayer/UI.update_base_hp)
 	enemy_base.base_health_changed.connect($CanvasLayer/UI.update_base_hp)
+
+
+func initialize_base(base_data, is_player):
+	var base = base_scene.instantiate()
+	base.is_player = is_player
+	base.position = Vector2(-4600 if is_player else 4600, 350)
+	
+	# Setting base attributes based on base_data
+	base.name = base_data["name"]
+	base.attack_speed = base_data["atk_speed"]
+	base.max_health = base_data["hp"]
+	base.attack_damage = base_data["damage"]
+	base.attack_type = base_data["atk_type"]
+	base.attack_range = base_data["atk_range"]
+	
+	# Setting animation frames for idle and attack
+	base.idle_row = base_data["idle_row"]
+	base.wide_idle = base_data["wide_idle"]
+	
+	for frame in base_data["idle_frames"]:
+		base.idle_frames.append(int(frame))
+	
+	base.attack_row = base_data["atk_row"]
+	base.wide_atk = base_data["wide_atk"]
+	
+	for frame in base_data["atk_frames"]:
+		base.attack_frames.append(int(frame))
+	
+	# Set base texture
+	if is_player:
+		base.get_node("Sprite2D").texture = load("res://assets/bases/player.png")
+	else:
+		base.get_node("Sprite2D").texture = load("res://assets/bases/enemy.png")
+	
+	return base
 
 
 func load_all_units():
@@ -191,15 +237,11 @@ func spawn_unit(unit_id: int, is_player: bool):
 	for frame in unit_data["atk_frames"]:
 		new_unit.attack_frames.append(int(frame))
 	
-	# Increase attack zone range if attack type is magical
-	if new_unit.attack_type == "magical":
-		new_unit.set_attack_zone(400)
-	
 	# Set sprite texture
 	if is_player:
-		new_unit.get_node("Sprite2D").texture = player_textures[unit_id]
+		new_unit.get_node("Sprite2D").texture = player_units_textures[unit_id]
 	else:
-		new_unit.get_node("Sprite2D").texture = enemy_textures[unit_id]
+		new_unit.get_node("Sprite2D").texture = enemy_units_textures[unit_id]
 	
 	$UnitsNode.add_child(new_unit)
 	
