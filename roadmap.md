@@ -55,7 +55,10 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - dodanie zachowania i przygotowanie mechaniki baz na wzór regularnych jednostek
 
 ### 25 V - 31 V
-- 
+- dostosowanie statystyk jednostek i baz w celu dążenia do balansu
+- dodanie okienka startowego gry (menu główne), wraz z demo bitwy odbywającym się w tle (bez aktywności gracza)
+- dodanie muzyki i efektów dźwiękowych do gry (spawnowanie dla jednostek, atak i śmierć dla baz i jednostek); uwzględnienie informacji o źródłach zasobów
+- usprawnienie UI (dodanie przycisków do wyciszania i wyjścia z gry do głównego menu)
 
 ### 01 VI - 07 VI
 - 

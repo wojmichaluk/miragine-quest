@@ -1,12 +1,20 @@
 [gd_scene format=4 uid="uid://cjvegyqr461ol"]
 
 [ext_resource type="Script" uid="uid://bripew4wfykku" path="res://scripts/main.gd" id="1_nxtc6"]
+[ext_resource type="PackedScene" uid="uid://bckuh81jqrvvj" path="res://scenes/PlayerUnit.tscn" id="2_lhr70"]
 [ext_resource type="Texture2D" uid="uid://cc8sv512152hw" path="res://assets/map/forest_tiles.png" id="2_vcsgt"]
+[ext_resource type="PackedScene" uid="uid://bcmlashiro1v6" path="res://scenes/EnemyUnit.tscn" id="3_wp0k4"]
+[ext_resource type="PackedScene" uid="uid://dkg2pejelckmf" path="res://scenes/Base.tscn" id="4_bjd11"]
 [ext_resource type="Script" uid="uid://dgi4e005184wj" path="res://scripts/camera_2d.gd" id="5_wp0k4"]
 [ext_resource type="Script" uid="uid://dr8onev4b1pvh" path="res://scripts/ui.gd" id="6_bjd11"]
 [ext_resource type="Texture2D" uid="uid://d226w01dbuuw4" path="res://assets/lifebar/lifebar.png" id="6_c01mt"]
 [ext_resource type="Texture2D" uid="uid://e8ucja36ac07" path="res://assets/lifebar/lifebar_border.png" id="6_nxtc6"]
 [ext_resource type="Script" uid="uid://cqj1saa27mvbd" path="res://scripts/minimap.gd" id="7_qmy6f"]
+[ext_resource type="Texture2D" uid="uid://b6syibss44y52" path="res://assets/other/speaker.png" id="9_3p2gp"]
+[ext_resource type="Texture2D" uid="uid://v7rnuujrrfbd" path="res://assets/other/speaker_muted.png" id="10_cvmbd"]
+[ext_resource type="Texture2D" uid="uid://cp0037wg4in4j" path="res://assets/other/music.png" id="11_ft6cd"]
+[ext_resource type="Texture2D" uid="uid://dstnodvwk6l5y" path="res://assets/other/music_muted.png" id="12_bb450"]
+[ext_resource type="Texture2D" uid="uid://1bv1g1gskqm2" path="res://assets/other/exit.png" id="13_nfivy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c01mt"]
 texture = ExtResource("2_vcsgt")
@@ -362,6 +370,9 @@ border_width_bottom = 2
 [node name="Main" type="Node2D" unique_id=300323835]
 y_sort_enabled = true
 script = ExtResource("1_nxtc6")
+player_unit_scene = ExtResource("2_lhr70")
+enemy_unit_scene = ExtResource("3_wp0k4")
+base_scene = ExtResource("4_bjd11")
 
 [node name="BaseLayer" type="TileMapLayer" parent="." unique_id=1485000736]
 z_index = -2
@@ -458,6 +469,64 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_272bh")
+
+[node name="SFXMuteButton" type="TextureButton" parent="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space" unique_id=1884092185]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -115.0
+offset_top = -60.0
+offset_right = -65.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+toggle_mode = true
+texture_normal = ExtResource("9_3p2gp")
+texture_pressed = ExtResource("10_cvmbd")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="MusicMuteButton" type="TextureButton" parent="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space" unique_id=1810531583]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -60.0
+offset_right = 20.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+toggle_mode = true
+texture_normal = ExtResource("11_ft6cd")
+texture_pressed = ExtResource("12_bb450")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ExitButton" type="TextureButton" parent="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space" unique_id=823570594]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 55.0
+offset_top = -60.0
+offset_right = 105.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("13_nfivy")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="GridRight" type="GridContainer" parent="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer" unique_id=1335286845]
 layout_mode = 2
@@ -558,4 +627,7 @@ y_sort_enabled = true
 [node name="GameTimer" type="Timer" parent="." unique_id=1442052412]
 autostart = true
 
+[connection signal="toggled" from="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space/SFXMuteButton" to="CanvasLayer/UI" method="_on_sfx_mute_button_toggled"]
+[connection signal="toggled" from="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space/MusicMuteButton" to="CanvasLayer/UI" method="_on_music_mute_button_toggled"]
+[connection signal="pressed" from="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space/ExitButton" to="CanvasLayer/UI" method="_on_exit_button_pressed"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="Miragine Quest"
+run/main_scene="uid://bntxu25pdyuqy"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GlobalData="*uid://cnvxycd7v35l6"
+MusicPlayer="*uid://rehl25vsay0s"
 
 [display]
 

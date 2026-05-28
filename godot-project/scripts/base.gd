@@ -31,6 +31,7 @@ var projectile_scene = preload("res://scenes/Projectile.tscn")
 
 @onready var sprite = $Sprite2D
 @onready var attack_zone = $AttackZone
+@onready var sfx_player = $AudioStreamPlayer2D
 
 # Standard frame size in LPC
 const FRAME_SIZE = 64
@@ -165,8 +166,9 @@ func attack_target(target, delta):
 	
 	# Projectile flies for some time
 	if not projectile_sent and attack_timer >= attack_speed - projectile_time:
-		# Animate
+		# Animate & play SFX
 		play_attack_animation()
+		play_attack_sound()
 		
 		# Color dependent on the side
 		var color = Color.AZURE if is_player else Color.FIREBRICK
@@ -213,6 +215,21 @@ func play_attack_animation():
 		)
 
 
+func play_attack_sound():
+	var sound
+	
+	# Getting sound for attack
+	if is_player:
+		sound = GlobalData.sounds["player_base_attack"]
+	else:
+		sound = GlobalData.sounds["enemy_base_attack"]
+	
+	sfx_player.stream = sound
+	sfx_player.volume_db = randf_range(-2.0, 2.0)
+	sfx_player.pitch_scale = randf_range(0.8, 1.2) # a little bit of randomness
+	sfx_player.play()
+
+
 func spawn_projectile(target, color):
 	var projectile = projectile_scene.instantiate()
 	
@@ -248,6 +265,9 @@ func die():
 	
 	var frames_num = death_frames.size()
 	
+	# Produce the death sound
+	play_death_sound()
+	
 	# Play death animation
 	var tween = create_tween()
 	
@@ -262,3 +282,18 @@ func die():
 	
 	# Call queue_free() after animation has ended
 	tween.finished.connect(queue_free)
+
+
+func play_death_sound():
+	var sound
+	
+	# Getting sound for death
+	if is_player:
+		sound = GlobalData.sounds["player_base_death"]
+	else:
+		sound = GlobalData.sounds["enemy_base_death"]
+	
+	sfx_player.stream = sound
+	sfx_player.volume_db = randf_range(-2.0, 2.0)
+	sfx_player.pitch_scale = randf_range(0.9, 1.1) # a little bit of randomness
+	sfx_player.play()

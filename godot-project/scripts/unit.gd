@@ -25,7 +25,7 @@ extends CharacterBody2D
 var attack_tween: Tween
 
 var is_player: bool
-var attack_timer: float
+var attack_timer: float = 0.0
 var current_health: float
 var state: String = "walk"
 
@@ -36,6 +36,7 @@ var projectile_scene = preload("res://scenes/Projectile.tscn")
 
 @onready var sprite = $Sprite2D
 @onready var attack_zone = $AttackZone
+@onready var sfx_player = $AudioStreamPlayer2D
 
 # Standard frame size in LPC
 const FRAME_SIZE = 64
@@ -52,7 +53,6 @@ var is_ready = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	current_health = max_health
-	reset_attack_timer()
 	
 	# Larger attack zone for magical units
 	if attack_type == "magical":
@@ -63,7 +63,9 @@ func _ready() -> void:
 	else:
 		set_sprite_frames_wide()
 	
+	play_spawn_sound()
 	sprite.flip_h = not is_player
+	sprite.scale = Vector2(pow(1.01, unit_id), pow(1.01, unit_id))
 	is_ready = true
 
 
@@ -85,13 +87,6 @@ func _process(delta: float) -> void:
 		current_frame_index = (current_frame_index + 1) % walk_frames.size()
 
 
-func reset_attack_timer():
-	attack_timer = attack_speed
-	
-	if attack_type == "magical":
-		attack_timer -= projectile_time
-
-
 func set_sprite_frames_normal():
 	# Calculating animation hframes and vframes, resetting region_enabled
 	sprite.hframes = sprite.texture.get_width() / FRAME_SIZE
@@ -106,6 +101,16 @@ func set_sprite_frames_wide():
 	sprite.region_enabled = true
 
 
+func play_spawn_sound():
+	# Getting sound for spawn
+	var sound = GlobalData.sounds["spawn"]
+	
+	sfx_player.stream = sound
+	sfx_player.volume_db = randf_range(2.0, 6.0)
+	sfx_player.pitch_scale = randf_range(0.9, 1.1) # a little bit of randomness
+	sfx_player.play()
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if state == "dead": return
@@ -118,16 +123,15 @@ func _physics_process(delta: float) -> void:
 	var should_move = true
 	
 	if target_to_attack != null and is_instance_valid(target_to_attack):
-		# Calculating direction to the target (approaching)
-		var direction_to_target = shifted_direction_to_target(target_to_attack)
-		
-		# Rotating the right side (so that character does not moonwalk)
-		sprite.flip_h = target_to_attack.global_position.x - global_position.x < 0
-		
 		if distance_to_target > attack_range or \
 			(attack_type == "physical" and \
 			abs(target_to_attack.global_position.y - global_position.y) > 0.25 * FRAME_SIZE):
-			velocity = direction_to_target * 0.67 * speed
+			# Calculating direction to the target (approaching)
+			var direction_to_target = shifted_direction_to_target(target_to_attack)
+			velocity = direction_to_target * 0.75 * speed
+			
+			# Rotating the right side (so that character does not moonwalk)
+			sprite.flip_h = direction_to_target.x < 0
 			
 			# Return to "walk" state
 			if state == "attack":
@@ -135,21 +139,23 @@ func _physics_process(delta: float) -> void:
 					set_sprite_frames_normal()
 				
 				current_frame_index = 0
-				sprite.flip_h = not is_player
 				state = "walk"
-				reset_attack_timer()
+				attack_timer = 0.0
 		else:
 			should_move = false
+			sprite.flip_h = target_to_attack.global_position.x - global_position.x < 0
 			velocity = Vector2.ZERO
 			state = "attack"
 			
 			if wide_atk == 1 and wide_walk == 0:
 				set_sprite_frames_wide()
 			
+			sprite.region_rect = Rect2(attack_frames[0] * FRAME_SIZE, attack_row * FRAME_SIZE, 2 * FRAME_SIZE, FRAME_SIZE)
 			attack_target(target_to_attack, delta)
 	else:
 		velocity.x = speed * direction
 		velocity.y = 0
+		sprite.flip_h = not is_player
 		
 		# Return to "walk" state
 		if state == "attack":
@@ -157,9 +163,8 @@ func _physics_process(delta: float) -> void:
 				set_sprite_frames_normal()
 			
 			current_frame_index = 0
-			sprite.flip_h = not is_player
 			state = "walk"
-			reset_attack_timer()
+			attack_timer = 0.0
 	
 	if should_move:
 		move_and_slide()
@@ -211,8 +216,9 @@ func metric_distance(target):
 	var diff_x = abs(global_position.x - target.global_position.x)
 	var diff_y = abs(global_position.y - target.global_position.y)
 	
+	# Strengthen the diff_y weight for close-range attack units
 	if attack_type == "physical":
-		return diff_x + 10 * diff_y
+		return diff_x + 4 * diff_y
 	else:
 		return diff_x + diff_y
 
@@ -222,9 +228,9 @@ func shifted_direction_to_target(target):
 	var angle_to_target = abs(vector_to_target.angle())
 	
 	if is_player:
-		vector_to_target.x -= 2 * FRAME_SIZE * angle_to_target / PI
+		vector_to_target.x -= 3 * FRAME_SIZE * angle_to_target / PI
 	else:
-		vector_to_target.x += 2 * FRAME_SIZE * (PI - angle_to_target) / PI
+		vector_to_target.x += 3 * FRAME_SIZE * (PI - angle_to_target) / PI
 	
 	return vector_to_target.normalized()
 
@@ -237,8 +243,9 @@ func attack_target(target, delta):
 	
 	# Projectile flies for some time
 	if attack_type == "magical" and not projectile_sent and attack_timer >= attack_speed - projectile_time:
-		# Animate
+		# Animate & play SFX
 		play_attack_animation()
+		play_attack_sound()
 		
 		# Color dependent on the specific unit
 		var color = Color.AZURE if unit_id == 2 else Color.AQUA if unit_id == 5 else Color.FIREBRICK
@@ -249,11 +256,12 @@ func attack_target(target, delta):
 	
 	# Waiting until attack_timer reaches attack_speed
 	if attack_timer >= attack_speed:
-		# Do not repeat animation for magical type attack units
+		# Do not repeat animation & SFX for magical type attack units
 		if attack_type == "physical":
 			play_attack_animation()
+			play_attack_sound()
 		
-		target.take_damage(attack_damage, "physical")
+		target.take_damage(attack_damage, attack_type)
 		
 		# Reset the counter and projectile status
 		attack_timer = 0.0
@@ -287,6 +295,21 @@ func play_attack_animation():
 			frames_num - 1, 
 			frames_num * frame_time
 		)
+
+
+func play_attack_sound():
+	var sounds
+	
+	# Getting sounds for attack type
+	if attack_type == "physical":
+		sounds = GlobalData.sounds["atk_phys"]
+	else:
+		sounds = GlobalData.sounds["atk_mag"]
+	
+	sfx_player.stream = sounds.pick_random()
+	sfx_player.volume_db = randf_range(-2.0, 2.0)
+	sfx_player.pitch_scale = randf_range(0.8, 1.2) # a little bit of randomness
+	sfx_player.play()
 
 
 func spawn_projectile(target, color):
@@ -327,6 +350,9 @@ func die():
 	
 	var frames_num = death_frames.size()
 	
+	# Produce the death sound
+	play_death_sound()
+	
 	# Play death animation
 	var tween = create_tween()
 	
@@ -341,3 +367,13 @@ func die():
 	
 	# Call queue_free() after animation has ended
 	tween.finished.connect(queue_free)
+
+
+func play_death_sound():
+	# Getting sounds for death
+	var sounds = GlobalData.sounds["death"]
+	
+	sfx_player.stream = sounds.pick_random()
+	sfx_player.volume_db = randf_range(-2.0, 2.0)
+	sfx_player.pitch_scale = randf_range(0.9, 1.1) # a little bit of randomness
+	sfx_player.play()

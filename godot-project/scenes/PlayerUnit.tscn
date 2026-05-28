@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://q6g0f8ws6goq" path="res://scripts/unit.gd" id="1_nkwui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_34bfp"]
-size = Vector2(1, 1)
+size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xgtta"]
 size = Vector2(300, 1800)
@@ -24,3 +24,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackZone" unique_id=482549527]
 shape = SubResource("RectangleShape2D_xgtta")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=279367236]
+max_distance = 2500.0
+bus = &"SFX"

@@ -8,17 +8,16 @@ var active_unit_id = -1
 
 @onready var left_group = $Panel/MarginContainer/HBoxContainer/GridLeft
 @onready var right_group = $Panel/MarginContainer/HBoxContainer/GridRight
+@onready var music_button = $Panel/MarginContainer/HBoxContainer/Space/MusicMuteButton
+@onready var sfx_button = $Panel/MarginContainer/HBoxContainer/Space/SFXMuteButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Load icon textures for player units and enemy units
-	for i in range(1, 13):
-		player_icons_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
-		enemy_icons_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
+	music_button.button_pressed = AudioServer.is_bus_mute(AudioServer.get_bus_index("Music"))
+	sfx_button.button_pressed = AudioServer.is_bus_mute(AudioServer.get_bus_index("SFX"))
 	
+	# Create buttons, enable player buttons and disable enemy buttons
 	create_buttons()
-	
-	# Enable player buttons and disable enemy buttons
 	set_buttons()
 
 
@@ -48,12 +47,12 @@ func create_buttons():
 		var atlas = AtlasTexture.new()
 		
 		if is_player:
-			atlas.atlas = player_icons_textures[id]
+			atlas.atlas = GlobalData.player_units_textures[id]
 			atlas.region = Rect2(0, 10 * 64, 64, 64)
 			button.icon = atlas
 			left_group.add_child(button)
 		else:
-			atlas.atlas = enemy_icons_textures[id]
+			atlas.atlas = GlobalData.enemy_units_textures[id]
 			atlas.region = Rect2(0, 10 * 64, 64, 64)
 			button.icon = atlas
 			right_group.add_child(button)
@@ -125,3 +124,24 @@ func update_unit_selection(unit_id, spawn_delay):
 			button.trigger_flash(0.5 * spawn_delay)
 		
 		await get_tree().create_timer(spawn_delay).timeout
+
+
+func _on_sfx_mute_button_toggled(toggled_on: bool) -> void:
+	MusicPlayer.set_sfx_mute(toggled_on)
+	update_button_visuals(sfx_button, toggled_on)
+
+
+func _on_music_mute_button_toggled(toggled_on: bool) -> void:
+	MusicPlayer.set_music_mute(toggled_on)
+	update_button_visuals(music_button, toggled_on)
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/MainMenu.tscn")
+
+
+func update_button_visuals(button: TextureButton, is_muted: bool):
+	if is_muted:
+		button.self_modulate = Color.RED
+	else:
+		button.self_modulate = Color.WHITE
