@@ -45,6 +45,7 @@ var frame_time = 0.1
 var current_frame_index = 0
 var is_ready = false
 
+# Signals to notify main script about the base health and death
 signal base_health_changed(current, maximum, is_player)
 signal base_destroyed(is_player)
 
@@ -252,13 +253,15 @@ func take_damage(amount: float, atk_type: String):
 	if current_health <= 0 and state != "dead":
 		state = "dead"
 		die()
-		base_destroyed.emit(is_player)
 
 
 func die():
 	# Stop the animation attack if it currently happens
 	if attack_tween:
 		attack_tween.kill()
+	
+	# Emit death signal
+	base_destroyed.emit(is_player)
 	
 	# Ensure that hframes and vframes are set 'normally'
 	set_sprite_frames_normal()

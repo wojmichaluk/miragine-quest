@@ -74,6 +74,8 @@ func spawn_menu_unit(unit_id: int, is_player: bool):
 	new_unit.is_player = is_player
 	new_unit.unit_id = unit_id
 	new_unit.unit_name = unit_data["name"]
+	new_unit.cost = unit_data["cost"]
+	new_unit.weight = unit_data["weight"]
 	new_unit.speed = unit_data["speed"]
 	new_unit.attack_speed = 0.8 * unit_data["atk_speed"]
 	new_unit.max_health = 2 * unit_data["hp"]

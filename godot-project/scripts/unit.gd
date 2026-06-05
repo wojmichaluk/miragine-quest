@@ -4,6 +4,7 @@ extends CharacterBody2D
 # Unit attributes
 @export var unit_id: int
 @export var unit_name: String
+@export var cost: int
 @export var weight: int
 @export var speed: int
 @export var attack_speed: float
@@ -49,6 +50,9 @@ var timer = 0.0
 var frame_time = 0.1
 var current_frame_index = 0
 var is_ready = false
+
+# Signal to notify main script about the unit death
+signal unit_died(unit_weight, unit_cost, is_player)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -344,6 +348,9 @@ func die():
 	# Stop the animation attack if it currently happens
 	if attack_tween:
 		attack_tween.kill()
+	
+	# Emit death signal
+	unit_died.emit(weight, cost, is_player)
 	
 	# Ensure that hframes and vframes are set 'normally'
 	set_sprite_frames_normal()
