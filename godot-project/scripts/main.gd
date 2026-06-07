@@ -6,6 +6,9 @@ extends Node2D
 @export var enemy_unit_scene: PackedScene
 @export var base_scene: PackedScene
 
+# Game over scene
+@export var game_over_scene: PackedScene
+
 # Gold currency
 var player_gold: int = 800
 var enemy_gold: int = 800
@@ -25,7 +28,7 @@ var enemy_weight_gain: float = 0.0
 # Timers
 var round_time: float = 40.0
 var current_time: float = 40.0
-var shopping_phase_duration: float = 10.0
+var shopping_phase_duration: float = 5.0
 
 # Signals to notify UI
 signal gold_changed(new_amount, is_player)
@@ -34,7 +37,9 @@ signal weight_changed(current, maximum, is_player)
 
 # Spawn unit utility
 var active_unit_id
-var spawn_delay_per_weight = 0.1
+
+# Round number
+var round = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -134,7 +139,13 @@ func initialize_base(base_data, is_player):
 func select_active_unit(unit_id):
 	active_unit_id = unit_id
 	var unit_data = GlobalData.player_units_data[str(unit_id)]
-	var spawn_delay = spawn_delay_per_weight * unit_data["weight"]
+	var time = current_time + shopping_phase_duration - round_time
+	var remaining_weight = player_weight_limit - player_weight
+	var units_to_send = floor(remaining_weight / unit_data["weight"])
+	
+	# A little time shift
+	var spawn_delay = (time - 2) / (units_to_send + 1)
+	spawn_delay = max(min(spawn_delay, 0.5), 0.0)
 	$CanvasLayer/UI.update_unit_selection(unit_id, spawn_delay)
 
 
@@ -245,20 +256,21 @@ func update_currency_gain(unit_weight, unit_cost, is_player):
 
 
 func end_game(is_player):
-	if is_player:
-		print("Wygrana!")
-	else:
-		print("Przegrana!")
+	var game_over = game_over_scene.instantiate()
+	add_child(game_over)
+	game_over.setup(not is_player)
+	
+	# Pause the game
+	get_tree().paused = true
 
 
 func start_new_round():
+	# Update time and round number
 	current_time = round_time
+	round += 1
 	
-	# Update weight and gold limits
-	player_weight_limit += int(player_weight_gain / 8.0)
-	enemy_weight_limit += int(enemy_weight_gain / 8.0)
-	player_gold_round += int(player_gold_gain / 4.0)
-	enemy_gold_round += int(enemy_gold_gain / 4.0)
+	# Update weight and gold limits based on round number
+	update_currency_schedule()
 	
 	# Adding gold at the start of the round
 	player_gold += player_gold_round
@@ -283,6 +295,14 @@ func start_new_round():
 	
 	# Let the 'AI' make a purchase
 	enemy_ai_purchase()
+
+
+func update_currency_schedule():
+	var factor = int(round / 10) + 1
+	player_weight_limit += int(player_weight_gain / (8.0 * factor))
+	enemy_weight_limit += int(enemy_weight_gain / (8.0 * factor))
+	player_gold_round += int(player_gold_gain / (4.0 * factor))
+	enemy_gold_round += int(enemy_gold_gain / (4.0 * factor))
 
 
 func enemy_ai_purchase():

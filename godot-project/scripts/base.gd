@@ -260,9 +260,6 @@ func die():
 	if attack_tween:
 		attack_tween.kill()
 	
-	# Emit death signal
-	base_destroyed.emit(is_player)
-	
 	# Ensure that hframes and vframes are set 'normally'
 	set_sprite_frames_normal()
 	
@@ -283,8 +280,11 @@ func die():
 		frames_num * frame_time
 	)
 	
-	# Call queue_free() after animation has ended
-	tween.finished.connect(queue_free)
+	# Emit death signal and call queue_free() after animation has ended
+	tween.finished.connect(func():
+		base_destroyed.emit(is_player)
+		queue_free()
+	)
 
 
 func play_death_sound():

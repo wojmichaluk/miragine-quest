@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cc8sv512152hw" path="res://assets/map/forest_tiles.png" id="2_vcsgt"]
 [ext_resource type="PackedScene" uid="uid://bcmlashiro1v6" path="res://scenes/EnemyUnit.tscn" id="3_wp0k4"]
 [ext_resource type="PackedScene" uid="uid://dkg2pejelckmf" path="res://scenes/Base.tscn" id="4_bjd11"]
+[ext_resource type="PackedScene" uid="uid://cna6ankn0q2dy" path="res://scenes/GameOver.tscn" id="5_cvmbd"]
 [ext_resource type="Script" uid="uid://dgi4e005184wj" path="res://scripts/camera_2d.gd" id="5_wp0k4"]
 [ext_resource type="Script" uid="uid://dr8onev4b1pvh" path="res://scripts/ui.gd" id="6_bjd11"]
 [ext_resource type="Texture2D" uid="uid://d226w01dbuuw4" path="res://assets/lifebar/lifebar.png" id="6_c01mt"]
@@ -373,6 +374,7 @@ script = ExtResource("1_nxtc6")
 player_unit_scene = ExtResource("2_lhr70")
 enemy_unit_scene = ExtResource("3_wp0k4")
 base_scene = ExtResource("4_bjd11")
+game_over_scene = ExtResource("5_cvmbd")
 
 [node name="BaseLayer" type="TileMapLayer" parent="." unique_id=1485000736]
 z_index = -2

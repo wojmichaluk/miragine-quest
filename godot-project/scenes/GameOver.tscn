@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cna6ankn0q2dy"]
+
+[ext_resource type="Script" uid="uid://d0gje2qd48dda" path="res://scripts/game_over.gd" id="1_6bcno"]
+
+[node name="GameOver" type="CanvasLayer" unique_id=548181630]
+process_mode = 2
+layer = 5
+script = ExtResource("1_6bcno")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=613537379]
+offset_right = 1600.0
+offset_bottom = 900.0
+color = Color(0.032382183, 0.032382198, 0.032382168, 0.54901963)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1361425477]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1625173091]
+custom_minimum_size = Vector2(800, 600)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=728936173]
+custom_minimum_size = Vector2(800, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1259773082]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Play Again"
+
+[node name="MainMenu" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1362927780]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Exit to Main Menu"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
