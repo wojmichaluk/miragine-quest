@@ -61,7 +61,9 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - usprawnienie UI (dodanie przycisków do wyciszania i wyjścia z gry do głównego menu)
 
 ### 01 VI - 07 VI
-- 
+- zmiana systemu walut - adaptacyjne przychody i wzrosty wag, ustalanie limitów na podstawie wyników rundy i numeru rundy
+- dodanie sceny końca gry
+- dostosowanie statystyk jednostek (zwiększona bezwaględna szybkość, skrócenie czasu ataku, inne drobne zmiany)
 
 ### 08 VI - 14 VI
 - 
