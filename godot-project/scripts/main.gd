@@ -10,10 +10,10 @@ extends Node2D
 @export var game_over_scene: PackedScene
 
 # Gold currency
-var player_gold: int = 800
-var enemy_gold: int = 800
-var player_gold_round: int = 500
-var enemy_gold_round: int = 500
+var player_gold: int = 1000
+var enemy_gold: int = 1000
+var player_gold_round: int = 800
+var enemy_gold_round: int = 800
 var player_gold_gain: float = 0.0
 var enemy_gold_gain: float = 0.0
 
@@ -24,6 +24,10 @@ var player_weight_limit: int = 20
 var enemy_weight_limit: int = 20
 var player_weight_gain: float = 0.0
 var enemy_weight_gain: float = 0.0
+
+# Maximum currency limits (per round)
+var MAX_GOLD_LIMIT = 8000
+var MAX_WEIGHT_LIMIT = 120
 
 # Timers
 var round_time: float = 40.0
@@ -298,11 +302,17 @@ func start_new_round():
 
 
 func update_currency_schedule():
-	var factor = int(round / 10) + 1
-	player_weight_limit += int(player_weight_gain / (8.0 * factor))
-	enemy_weight_limit += int(enemy_weight_gain / (8.0 * factor))
-	player_gold_round += int(player_gold_gain / (4.0 * factor))
-	enemy_gold_round += int(enemy_gold_gain / (4.0 * factor))
+	var factor = int(round / 5) + 1
+	player_weight_limit += int(player_weight_gain / (5.0 * factor))
+	enemy_weight_limit += int(enemy_weight_gain / (5.0 * factor))
+	player_gold_round += int(player_gold_gain / (5.0 * factor))
+	enemy_gold_round += int(enemy_gold_gain / (5.0 * factor))
+	
+	# Respect the limits
+	player_weight_limit = min(player_weight_limit, MAX_WEIGHT_LIMIT)
+	enemy_weight_limit = min(enemy_weight_limit, MAX_WEIGHT_LIMIT)
+	player_gold_round = min(player_gold_round, MAX_GOLD_LIMIT)
+	enemy_gold_round = min(enemy_gold_round, MAX_GOLD_LIMIT)
 
 
 func enemy_ai_purchase():

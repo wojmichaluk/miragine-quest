@@ -1,0 +1,186 @@
+[gd_scene format=3 uid="uid://dsdg1ydrqalut"]
+
+[ext_resource type="Script" uid="uid://chmty0dd7ifia" path="res://scripts/unit_info_window.gd" id="1_bpm7o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_016g8"]
+bg_color = Color(0, 0, 0, 0.7529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0cfv"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpm7o"]
+bg_color = Color(0.15539777, 0.19736046, 0.54321337, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdt4p"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2842e"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqxrd"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnt3s"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drevu"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpuyq"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[node name="UnitInfoWindow" type="PanelContainer" unique_id=1204706492]
+z_index = 2
+offset_right = 400.0
+offset_bottom = 400.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_016g8")
+script = ExtResource("1_bpm7o")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1777601520]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2013953917]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1971223005]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1369745735]
+layout_mode = 2
+
+[node name="Labels" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1994934496]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CostLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=1450668858]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="WeightLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=1644909579]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="AtkTypeLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=1370063514]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="SpeedContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=705402598]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SpeedContainer" unique_id=1612504264]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/SpeedContainer" unique_id=326503867]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_h0cfv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="AtkSpeedContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=215642694]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AtkSpeedContainer" unique_id=1795614629]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/AtkSpeedContainer" unique_id=1718693921]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_cdt4p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="HPContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=315758486]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HPContainer" unique_id=64498124]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/HPContainer" unique_id=1385510495]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_2842e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="DamageContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=992468265]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/DamageContainer" unique_id=1009134677]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/DamageContainer" unique_id=1583403401]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_aqxrd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="AtkRangeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2011199822]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AtkRangeContainer" unique_id=538629860]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/AtkRangeContainer" unique_id=683821281]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dnt3s")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="ResPhysContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=81676122]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ResPhysContainer" unique_id=739293233]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/ResPhysContainer" unique_id=2103911653]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_drevu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="ResMagContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1048792570]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ResMagContainer" unique_id=664683633]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/ResMagContainer" unique_id=1796026789]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dpuyq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false

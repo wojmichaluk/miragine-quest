@@ -66,7 +66,8 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - dostosowanie statystyk jednostek (zwiększona bezwaględna szybkość, skrócenie czasu ataku, inne drobne zmiany)
 
 ### 08 VI - 14 VI
-- 
+- obliczanie skrajnych statystyk jednostek (na potrzeby wizualizacji)
+- dodanie panelu informacji o jednostce - po kliknięciu prawym przyciskiem myszy na okienko jednostki, pojawia się (popup) i w przystępny sposób prezentuje statystyki jednostki
 
 ### 15 VI - 21 VI
 - 
