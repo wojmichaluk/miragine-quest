@@ -9,6 +9,10 @@ var enemy_units_textures = []
 var player_units_data: Dictionary = {}
 var enemy_units_data: Dictionary = {}
 
+# Extreme values for unit statistics
+var min_stats: Dictionary = {}
+var max_stats: Dictionary = {}
+
 # Sounds for different unit actions
 var sounds: Dictionary = {}
 
@@ -21,6 +25,9 @@ func _ready() -> void:
 	
 	# Load all units
 	load_all_units()
+	
+	# Calculate extreme values
+	calculate_extremes()
 	
 	# Load all sounds
 	load_sounds()
@@ -56,6 +63,62 @@ func load_units_data(file_path, is_player):
 				enemy_units_data = json.data
 
 
+func calculate_extremes():
+	# Initializing extreme values
+	var min_speed = INF
+	var max_speed = 0
+	var min_atk_speed = INF
+	var max_atk_speed = 0
+	var min_hp = INF
+	var max_hp = 0
+	var min_damage = INF
+	var max_damage = 0
+	var min_atk_range = INF
+	var max_atk_range = 0
+	
+	for unit_data in player_units_data.values():
+		# Getting unit statistics
+		var speed = unit_data["speed"]
+		var atk_speed = unit_data["atk_speed"]
+		var hp = unit_data["hp"]
+		var damage = unit_data["damage"]
+		var atk_range = unit_data["atk_range"]
+		
+		min_speed = min(speed, min_speed)
+		max_speed = max(speed, max_speed)
+		
+		min_atk_speed = min(atk_speed, min_atk_speed)
+		max_atk_speed = max(atk_speed, max_atk_speed)
+		
+		min_hp = min(hp, min_hp)
+		max_hp = max(hp, max_hp)
+		
+		min_damage = min(damage, min_damage)
+		max_damage = max(damage, max_damage)
+		
+		min_atk_range = min(atk_range, min_atk_range)
+		max_atk_range = max(atk_range, max_atk_range)
+	
+	# Filling the dictionaries
+	min_stats["speed"] = min_speed
+	min_stats["atk_speed"] = min_atk_speed
+	min_stats["hp"] = min_hp
+	min_stats["damage"] = min_damage
+	min_stats["atk_range"] = min_atk_range
+	
+	max_stats["speed"] = max_speed
+	max_stats["atk_speed"] = max_atk_speed
+	max_stats["hp"] = max_hp
+	max_stats["damage"] = max_damage
+	max_stats["atk_range"] = max_atk_range
+	
+	# "Hardcoded" values for resistances
+	min_stats["res_phys"] = 0
+	min_stats["res_mag"] = 0
+	max_stats["res_phys"] = 10
+	max_stats["res_mag"] = 10
+
+
 func load_sounds():
 	# Sounds for attack (physical)
 	sounds["atk_phys"] = [
@@ -84,4 +147,3 @@ func load_sounds():
 	sounds["enemy_base_attack"] = preload("res://assets/music/sounds/enemy_base_attack.wav")
 	sounds["player_base_death"] = preload("res://assets/music/sounds/player_base_death.wav")
 	sounds["enemy_base_death"] = preload("res://assets/music/sounds/enemy_base_death.wav")
-	
