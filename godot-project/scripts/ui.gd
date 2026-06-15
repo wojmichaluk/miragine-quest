@@ -4,7 +4,8 @@ extends Control
 var player_icons_textures = []
 var enemy_icons_textures = []
 var unit_button_scene = preload("res://scenes/UnitButton.tscn")
-var active_unit_id = -1
+var active_player_unit_id = -1
+var active_enemy_unit_id = -1
 
 @onready var left_group = $Panel/MarginContainer/HBoxContainer/GridLeft
 @onready var right_group = $Panel/MarginContainer/HBoxContainer/GridRight
@@ -34,6 +35,7 @@ func create_buttons():
 		
 		# Setting button data and style options
 		button.unit_id = id
+		button.is_player = is_player
 		button.expand_icon = true
 		button.icon_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 		button.vertical_icon_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
@@ -70,7 +72,7 @@ func set_buttons():
 	for button in enemy_unit_buttons:
 		if button is Button:
 			button.disabled = true
-			button.modulate.a = 0.5
+			button.modulate.a = 1.0
 
 
 func update_gold_display(amount: int, is_player: bool):
@@ -104,26 +106,48 @@ func update_base_hp(current: float, maximum: float, is_player: bool):
 	tween.tween_property(hp_bar, "value", target_value, 0.3).set_trans(Tween.TRANS_SINE)
 
 
-func update_unit_selection(unit_id, spawn_delay):
+func update_unit_selection(unit_id, is_player, spawn_delay):
 	var spawn_status = -1
-	var player_unit_buttons = left_group.get_children()
+	var button
 	
-	# Clear previous selection
-	if active_unit_id != -1 and active_unit_id != unit_id:
-		player_unit_buttons[active_unit_id].is_active = false
+	if is_player:
+		var player_unit_buttons = left_group.get_children()
 	
-	active_unit_id = unit_id
-	var button = player_unit_buttons[unit_id]
-	button.is_active = true
-	
-	while spawn_status != 0 and unit_id == active_unit_id:
-		spawn_status = get_tree().current_scene.spawn_unit(unit_id, true)
+		# Clear previous selection
+		if active_player_unit_id != -1 and active_player_unit_id != unit_id:
+			player_unit_buttons[active_player_unit_id].is_active = false
 		
-		# Flash if unit has been spawned
-		if spawn_status == 2:
-			button.trigger_flash(0.5 * spawn_delay)
+		active_player_unit_id = unit_id
+		button = player_unit_buttons[unit_id]
+		button.is_active = true
+	
+		while spawn_status != 0 and unit_id == active_player_unit_id:
+			spawn_status = get_tree().current_scene.spawn_unit(unit_id, true)
+			
+			# Flash if unit has been spawned
+			if spawn_status == 2:
+				button.trigger_flash(0.5 * spawn_delay)
+			
+			await get_tree().create_timer(spawn_delay).timeout
+	else:
+		var enemy_unit_buttons = right_group.get_children()
+	
+		# Clear previous selection
+		if active_enemy_unit_id != -1 and active_enemy_unit_id != unit_id:
+			enemy_unit_buttons[active_enemy_unit_id].is_active = false
 		
-		await get_tree().create_timer(spawn_delay).timeout
+		active_enemy_unit_id = unit_id
+		button = enemy_unit_buttons[unit_id]
+		button.is_active = true
+	
+		while spawn_status != 0 and unit_id == active_enemy_unit_id:
+			spawn_status = get_tree().current_scene.spawn_unit(unit_id, false)
+			
+			# Flash if unit has been spawned
+			if spawn_status == 2:
+				button.trigger_flash(0.5 * spawn_delay)
+			
+			await get_tree().create_timer(spawn_delay).timeout
 
 
 func _on_sfx_mute_button_toggled(toggled_on: bool) -> void:

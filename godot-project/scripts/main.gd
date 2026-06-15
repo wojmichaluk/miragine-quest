@@ -40,10 +40,11 @@ signal time_changed(seconds_left, is_shopping)
 signal weight_changed(current, maximum, is_player)
 
 # Spawn unit utility
-var active_unit_id
+var active_player_unit_id
+var active_enemy_unit_id
 
 # Round number
-var round = 0
+var round_no = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -63,7 +64,7 @@ func _ready() -> void:
 	weight_changed.emit(enemy_weight, enemy_weight_limit, false)
 	
 	# Initial player unit selection
-	select_active_unit(0)
+	select_active_unit(0, true)
 	
 	# Initial AI purchase
 	enemy_ai_purchase()
@@ -140,17 +141,26 @@ func initialize_base(base_data, is_player):
 	return base
 
 
-func select_active_unit(unit_id):
-	active_unit_id = unit_id
-	var unit_data = GlobalData.player_units_data[str(unit_id)]
+func select_active_unit(unit_id, is_player):
+	var unit_data
+	var remaining_weight
+	
+	if is_player:
+		active_player_unit_id = unit_id
+		unit_data = GlobalData.player_units_data[str(unit_id)]
+		remaining_weight = player_weight_limit - player_weight
+	else:
+		active_enemy_unit_id = unit_id
+		unit_data = GlobalData.enemy_units_data[str(unit_id)]
+		remaining_weight = enemy_weight_limit - enemy_weight
+	
 	var time = current_time + shopping_phase_duration - round_time
-	var remaining_weight = player_weight_limit - player_weight
 	var units_to_send = floor(remaining_weight / unit_data["weight"])
 	
 	# A little time shift
 	var spawn_delay = (time - 2) / (units_to_send + 1)
 	spawn_delay = max(min(spawn_delay, 0.5), 0.0)
-	$CanvasLayer/UI.update_unit_selection(unit_id, spawn_delay)
+	$CanvasLayer/UI.update_unit_selection(unit_id, is_player, spawn_delay)
 
 
 func spawn_unit(unit_id: int, is_player: bool):
@@ -271,7 +281,7 @@ func end_game(is_player):
 func start_new_round():
 	# Update time and round number
 	current_time = round_time
-	round += 1
+	round_no += 1
 	
 	# Update weight and gold limits based on round number
 	update_currency_schedule()
@@ -295,14 +305,14 @@ func start_new_round():
 	enemy_gold_gain = 0.0
 	
 	# Player unit selection
-	select_active_unit(active_unit_id)
+	select_active_unit(active_player_unit_id, true)
 	
 	# Let the 'AI' make a purchase
 	enemy_ai_purchase()
 
 
 func update_currency_schedule():
-	var factor = int(round / 5) + 1
+	var factor = int(round_no / 5) + 1
 	player_weight_limit += int(player_weight_gain / (5.0 * factor))
 	enemy_weight_limit += int(enemy_weight_gain / (5.0 * factor))
 	player_gold_round += int(player_gold_gain / (5.0 * factor))
@@ -317,6 +327,7 @@ func update_currency_schedule():
 
 func enemy_ai_purchase():
 	# Simple AI: buy random units
-	for i in range(100):
-		spawn_unit(randi_range(0, 11), false)
-		await get_tree().create_timer(0.1).timeout
+	for i in range(5):
+		var unit_id = randi_range(0, 11)
+		select_active_unit(unit_id, false)
+		await get_tree().create_timer(0.8).timeout
