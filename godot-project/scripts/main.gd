@@ -46,10 +46,16 @@ var active_enemy_unit_id
 # Round number
 var round_no = 0
 
+# Analyzed units data for AI
+var analyzed_data: Dictionary
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Setup bases
 	setup_bases()
+	
+	# Analyze enemy units (for AI's sake)
+	analyze_enemy_units()
 	
 	# Connect time and currency signals
 	gold_changed.connect($CanvasLayer/UI.update_gold_display)
@@ -139,6 +145,23 @@ func initialize_base(base_data, is_player):
 		base.get_node("Sprite2D").texture = load("res://assets/bases/enemy.png")
 	
 	return base
+
+
+func analyze_enemy_units():
+	# Get all enemy units data
+	var enemy_units_data = GlobalData.enemy_units_data
+	
+	# Calculate chosen statisics (per weight)
+	for key in enemy_units_data:
+		var unit_data = enemy_units_data[key]
+		var weight = unit_data["weight"]
+		
+		analyzed_data[key] = Dictionary()
+		analyzed_data[key]["type"] = unit_data["atk_type"]
+		analyzed_data[key]["dps"] = (unit_data["damage"] / unit_data["atk_speed"]) / weight
+		analyzed_data[key]["hp_phys"] = (unit_data["hp"] / (1.0 - unit_data["res_phys"])) / weight
+		analyzed_data[key]["hp_mag"] = (unit_data["hp"] / (1.0 - unit_data["res_mag"])) / weight
+		analyzed_data[key]["cost"] = unit_data["cost"] / weight
 
 
 func select_active_unit(unit_id, is_player):
@@ -326,8 +349,116 @@ func update_currency_schedule():
 
 
 func enemy_ai_purchase():
-	# Simple AI: buy random units
-	for i in range(5):
-		var unit_id = randi_range(0, 11)
-		select_active_unit(unit_id, false)
-		await get_tree().create_timer(0.8).timeout
+	var stats = analyze_current_player_units()
+	var best_units = choose_units_by_profit(stats)
+	
+	# Buy top 2 best units
+	for i in range(2):
+		select_active_unit(best_units[i], false)
+		await get_tree().create_timer(2.0 / (i+1)).timeout
+
+
+func analyze_current_player_units():
+	var all_units = $UnitsNode.get_children()
+	var player_units = []
+	
+	# Filter player units
+	for unit in all_units:
+		if unit.is_in_group("player"):
+			player_units.append(unit)
+	
+	# Analyzing statistics
+	var stats: Dictionary
+	
+	stats["physical_units"] = 0
+	stats["avg_res_phys"] = 0.0
+	stats["magical_units"] = 0
+	stats["avg_res_mag"] = 0.0
+	
+	for unit in player_units:
+		if unit.attack_type == "physical":
+			stats["physical_units"] += unit.weight
+			stats["avg_res_phys"] += unit.weight * unit.res_phys
+		else:
+			stats["magical_units"] += unit.weight
+			stats["avg_res_mag"] += unit.weight * unit.res_mag
+	
+	# If no data, use default values
+	if stats["physical_units"] == 0:
+		stats["physical_units"] = 1
+	
+	if stats["magical_units"] == 0:
+		stats["magical_units"] = 1
+	
+	# Averaging resistances
+	stats["avg_res_phys"] /= stats["physical_units"]
+	stats["avg_res_mag"] /= stats["magical_units"]
+	
+	return stats
+
+
+func choose_units_by_profit(player_stats):
+	var units_no = len(GlobalData.player_units_data.keys())
+	var scores: Dictionary
+	
+	for i in range(units_no):
+		scores[i] = 0
+	
+	# Sorting by DPS
+	var sorted_keys = analyzed_data.keys()
+	sorted_keys.sort_custom(func(a, b):
+		return analyzed_data[a]["dps"] > analyzed_data[b]["dps"]
+	)
+	
+	# Updating scores
+	for i in range(units_no):
+		scores[int(sorted_keys[i])] += 10.0 - 0.5 * i
+	
+	# Sorting by effective hitpoints (physical)
+	sorted_keys = analyzed_data.keys()
+	sorted_keys.sort_custom(func(a, b):
+		return analyzed_data[a]["hp_phys"] > analyzed_data[b]["hp_phys"]
+	)
+	
+	# Updating scores
+	var mult = player_stats["physical_units"] / (player_stats["physical_units"] + player_stats["magical_units"])
+	
+	for i in range(units_no):
+		scores[int(sorted_keys[i])] += mult * (10.0 - 0.5 * i)
+	
+	# Sorting by effective hitpoints (magical)
+	sorted_keys = analyzed_data.keys()
+	sorted_keys.sort_custom(func(a, b):
+		return analyzed_data[a]["hp_mag"] > analyzed_data[b]["hp_mag"]
+	)
+	
+	# Updating scores
+	mult = player_stats["magical_units"] / (player_stats["physical_units"] + player_stats["magical_units"])
+	
+	for i in range(units_no):
+		scores[int(sorted_keys[i])] += mult * (10.0 - 0.5 * i)
+	
+	# Update scores based on average resistances
+	for i in range(units_no):
+		if analyzed_data[str(i)]["type"] == "physical":
+			scores[i] *= (1 - player_stats["avg_res_phys"] / 10.0)
+		else:
+			scores[i] *= (1 - player_stats["avg_res_mag"] / 10.0)
+	
+	# Update scores based on costs
+	var avg_funds = enemy_gold / enemy_weight_limit
+	
+	# Apply penalty for being "too expensive"
+	for i in range(units_no):
+		if analyzed_data[str(i)]["cost"] > avg_funds:
+			scores[i] -= (analyzed_data[str(i)]["cost"] - avg_funds)
+	
+	# Sort by scores
+	sorted_keys = scores.keys()
+	sorted_keys.sort_custom(func(a, b):
+		return scores[a] > scores[b]
+	)
+	
+	print(scores)
+	print(sorted_keys)
+	return sorted_keys
