@@ -77,9 +77,9 @@ func set_buttons():
 
 func update_gold_display(amount: int, is_player: bool):
 	if is_player:
-		$Labels/PlayerGold.text = "Złoto: " + str(amount)
+		$Labels/PlayerGold.text = "🪙 " + str(amount)
 	else:
-		$Labels/EnemyGold.text = "Złoto: " + str(amount)
+		$Labels/EnemyGold.text = str(amount) + " 🪙"
 
 
 func update_timer_display(seconds_left: int, is_shopping: bool):
@@ -94,9 +94,9 @@ func update_timer_display(seconds_left: int, is_shopping: bool):
 
 func update_weight_display(current: int, maximum: int, is_player: bool):
 	if is_player:
-		$Labels/PlayerCapacity.text = "Armia: " + str(current) + " / " + str(maximum)
+		$Labels/PlayerCapacity.text = "💂 " + str(maximum - current)
 	else:
-		$Labels/EnemyCapacity.text = "Armia: " + str(current) + " / " + str(maximum)
+		$Labels/EnemyCapacity.text = str(maximum - current) + " 💂"
 
 
 func update_base_hp(current: float, maximum: float, is_player: bool):

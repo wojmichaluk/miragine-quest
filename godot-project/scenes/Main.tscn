@@ -543,22 +543,23 @@ offset_bottom = 40.0
 
 [node name="PlayerGold" type="Label" parent="CanvasLayer/UI/Labels" unique_id=735946417]
 layout_mode = 0
-offset_top = 50.0
-offset_right = 250.0
-offset_bottom = 133.0
-theme_override_font_sizes/font_size = 48
+offset_left = 10.0
+offset_top = 60.0
+offset_right = 310.0
+offset_bottom = 135.0
+theme_override_font_sizes/font_size = 40
 
 [node name="EnemyGold" type="Label" parent="CanvasLayer/UI/Labels" unique_id=1092886061]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 1310.0
-offset_top = 50.0
-offset_right = 1560.0
-offset_bottom = 133.0
+offset_left = 1250.0
+offset_top = 60.0
+offset_right = 1550.0
+offset_bottom = 135.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 40
 horizontal_alignment = 2
 
 [node name="TimerLabel" type="Label" parent="CanvasLayer/UI/Labels" unique_id=448844024]
@@ -575,18 +576,19 @@ horizontal_alignment = 1
 
 [node name="PlayerCapacity" type="Label" parent="CanvasLayer/UI/Labels" unique_id=1126935031]
 layout_mode = 0
-offset_top = 133.0
-offset_right = 400.0
-offset_bottom = 216.0
-theme_override_font_sizes/font_size = 48
+offset_left = 10.0
+offset_top = 135.0
+offset_right = 260.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 40
 
 [node name="EnemyCapacity" type="Label" parent="CanvasLayer/UI/Labels" unique_id=764414135]
 layout_mode = 1
-offset_left = 1200.0
-offset_top = 133.0
-offset_right = 1600.0
-offset_bottom = 216.0
-theme_override_font_sizes/font_size = 48
+offset_left = 1340.0
+offset_top = 135.0
+offset_right = 1590.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 40
 horizontal_alignment = 2
 
 [node name="ProgressBars" type="Control" parent="CanvasLayer/UI" unique_id=898078429]
