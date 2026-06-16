@@ -459,6 +459,4 @@ func choose_units_by_profit(player_stats):
 		return scores[a] > scores[b]
 	)
 	
-	print(scores)
-	print(sorted_keys)
 	return sorted_keys

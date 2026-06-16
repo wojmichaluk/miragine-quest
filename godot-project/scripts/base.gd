@@ -171,11 +171,8 @@ func attack_target(target, delta):
 		play_attack_animation()
 		play_attack_sound()
 		
-		# Color dependent on the side
-		var color = Color.AZURE if is_player else Color.FIREBRICK
-		
 		# Send projectile
-		spawn_projectile(target, color)
+		spawn_projectile(target, is_player)
 		projectile_sent = true
 	
 	# Waiting until attack_timer reaches attack_speed
@@ -231,7 +228,7 @@ func play_attack_sound():
 	sfx_player.play()
 
 
-func spawn_projectile(target, color):
+func spawn_projectile(target, is_player):
 	var projectile = projectile_scene.instantiate()
 	
 	# Setup the projectile attributes
@@ -239,9 +236,9 @@ func spawn_projectile(target, color):
 	projectile.target = target
 	projectile.lifetime = projectile_time
 	
-	# Set position and color
+	# Set position and texture
 	projectile.global_position = global_position
-	projectile.modulate = color
+	projectile.texture = GlobalData.projectile_textures[-1][is_player]
 	
 	get_tree().root.add_child(projectile)
 

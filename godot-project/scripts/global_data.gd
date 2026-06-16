@@ -5,6 +5,9 @@ extends Node
 var player_units_textures = []
 var enemy_units_textures = []
 
+# Projectile textures
+var projectile_textures: Dictionary = {}
+
 # Units data
 var player_units_data: Dictionary = {}
 var enemy_units_data: Dictionary = {}
@@ -23,6 +26,9 @@ func _ready() -> void:
 		player_units_textures.append(load("res://assets/units/player/unit" + str(i) + ".png"))
 		enemy_units_textures.append(load("res://assets/units/enemy/unit" + str(i) + ".png"))
 	
+	# Hardcoded (unit_id, is_player) tuples for projectile textures
+	load_projectile_textures()
+	
 	# Load all units
 	load_all_units()
 	
@@ -36,6 +42,22 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func load_projectile_textures():
+	projectile_textures[2] = Dictionary()
+	projectile_textures[5] = Dictionary()
+	projectile_textures[9] = Dictionary()
+	projectile_textures[-1] = Dictionary() # for main bases
+	
+	projectile_textures[2][true] = load("res://assets/projectiles/wind.png")
+	projectile_textures[2][false] = load("res://assets/projectiles/earth.png")
+	projectile_textures[5][true] = load("res://assets/projectiles/water.png")
+	projectile_textures[5][false] = load("res://assets/projectiles/fire.png")
+	projectile_textures[9][true] = load("res://assets/projectiles/plasma.png")
+	projectile_textures[9][false] = load("res://assets/projectiles/doom.png")
+	projectile_textures[-1][true] = load("res://assets/projectiles/arrow.png")
+	projectile_textures[-1][false] = load("res://assets/projectiles/spell.png")
 
 
 func load_all_units():

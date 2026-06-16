@@ -20,7 +20,7 @@
   },
   "1": {
 	"name": "Przeklęty rycerz",
-	"cost": 70,
+	"cost": 60,
 	"weight": 2,
 	"speed": 177,
 	"atk_speed": 1.25,
@@ -39,7 +39,7 @@
   },
   "2": {
 	"name": "Adept ziemi",
-	"cost": 60,
+	"cost": 80,
 	"weight": 2,
 	"speed": 174,
 	"atk_speed": 1.4,
@@ -58,11 +58,11 @@
   },
   "3": {
 	"name": "Krwisty zabójca",
-	"cost": 120,
+	"cost": 125,
 	"weight": 3,
 	"speed": 192,
 	"atk_speed": 1.0,
-	"hp": 125,
+	"hp": 120,
 	"damage": 50,
 	"atk_type": "physical",
 	"atk_range": 50,
