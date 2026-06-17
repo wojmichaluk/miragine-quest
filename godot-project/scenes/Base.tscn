@@ -6,7 +6,7 @@
 size = Vector2(16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c07sk"]
-radius = 800.0
+radius = 1000.0
 
 [node name="Base" type="CharacterBody2D" unique_id=500375172]
 collision_layer = 0

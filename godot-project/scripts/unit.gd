@@ -194,7 +194,7 @@ func find_closest_target():
 			# Checking if it is a base
 			if body.is_in_group("base"):
 				base = body
-				continue
+				break
 				
 			var metric_dist = metric_distance(body)
 			
@@ -203,8 +203,8 @@ func find_closest_target():
 				min_metric_dist = metric_dist
 				min_real_dist = global_position.distance_to(body.global_position)
 	
-	# Return base as a target only if there is no unit target
-	if target == null and base != null:
+	# Return base as a target whenever possible
+	if base != null:
 		return {
 			"target": base,
 			"dist": global_position.distance_to(base.global_position)
@@ -252,7 +252,7 @@ func attack_target(target, delta):
 		play_attack_sound()
 		
 		# Send projectile
-		spawn_projectile(target, unit_id, is_player)
+		spawn_projectile(target, is_player)
 		projectile_sent = true
 	
 	# Waiting until attack_timer reaches attack_speed
@@ -313,7 +313,7 @@ func play_attack_sound():
 	sfx_player.play()
 
 
-func spawn_projectile(target, unit_id, is_player):
+func spawn_projectile(target, is_player):
 	var projectile = projectile_scene.instantiate()
 	
 	# Setup the projectile attributes

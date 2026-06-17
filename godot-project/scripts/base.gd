@@ -8,6 +8,8 @@ extends CharacterBody2D
 @export var attack_damage: float
 @export var attack_type: String
 @export var attack_range: int
+@export var res_phys: int
+@export var res_mag: int
 @export var direction: int
 
 # Animation attributes
@@ -24,10 +26,14 @@ var attack_timer: float
 var current_health: float
 var state: String = "idle"
 
-# Both bases have ranged attack
+# Bases have ranged attack
 var projectile_sent: bool = false
 var projectile_time: float = 0.8
 var projectile_scene = preload("res://scenes/Projectile.tscn")
+
+# There are main bases and mid bases
+var is_main: bool
+var is_aux: bool = false
 
 @onready var sprite = $Sprite2D
 @onready var attack_zone = $AttackZone
@@ -152,7 +158,7 @@ func find_closest_target():
 			(is_in_group("enemy") and body.is_in_group("player")):
 			var dist = global_position.distance_to(body.global_position)
 			
-			if dist < min_dist:
+			if dist < min_dist and dist < attack_range:
 				target = body
 				min_dist = dist
 	
@@ -238,14 +244,27 @@ func spawn_projectile(target, is_player):
 	
 	# Set position and texture
 	projectile.global_position = global_position
-	projectile.texture = GlobalData.projectile_textures[-1][is_player]
+	
+	if is_main:
+		projectile.texture = GlobalData.projectile_textures[-1][is_player]
+	elif not is_aux: # mid main base
+		projectile.texture = GlobalData.projectile_textures[-1][true] # the same texture
+	else: # mid aux base
+		projectile.texture = GlobalData.projectile_textures[-2][false]
 	
 	get_tree().root.add_child(projectile)
 
 
 func take_damage(amount: float, atk_type: String):
-	current_health -= amount
-	base_health_changed.emit(current_health, max_health, is_player)
+	# Determine if main bases or mid bases
+	if is_main:
+		current_health -= amount
+		base_health_changed.emit(current_health, max_health, is_player)
+	else:
+		if atk_type == "physical":
+			current_health -= amount * (10.0 - res_phys) / 10.0
+		elif atk_type == "magical":
+			current_health -= amount * (10.0 - res_mag) / 10.0
 	
 	if current_health <= 0 and state != "dead":
 		state = "dead"

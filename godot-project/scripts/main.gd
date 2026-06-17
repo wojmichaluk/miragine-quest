@@ -100,12 +100,16 @@ func setup_bases():
 	# Initialize player and enemy bases
 	var player_base = initialize_base(bases_data["player"], true)
 	var enemy_base = initialize_base(bases_data["enemy"], false)
+	var enemy_bases_mid = initialize_base_mid(bases_data["enemy_mid_main"], bases_data["enemy_mid_aux"])
 	
 	# Adding bases to scene
 	add_child(player_base)
 	add_child(enemy_base)
 	
-	# Connecting bases signals to UI
+	for base_mid in enemy_bases_mid:
+		add_child(base_mid)
+	
+	# Connecting (main) bases signals to UI
 	player_base.base_health_changed.connect($CanvasLayer/UI.update_base_hp)
 	player_base.base_destroyed.connect(end_game)
 	enemy_base.base_health_changed.connect($CanvasLayer/UI.update_base_hp)
@@ -116,6 +120,7 @@ func initialize_base(base_data, is_player):
 	var base = base_scene.instantiate()
 	base.is_player = is_player
 	base.position = Vector2(-4600 if is_player else 4600, 350)
+	base.is_main = true
 	
 	# Setting base attributes based on base_data
 	base.name = base_data["name"]
@@ -145,6 +150,85 @@ func initialize_base(base_data, is_player):
 		base.get_node("Sprite2D").texture = load("res://assets/bases/enemy.png")
 	
 	return base
+
+
+func initialize_base_mid(base_data_main, base_data_aux):
+	# Main mid base
+	var base_mid_main = base_scene.instantiate()
+	base_mid_main.is_player = false
+	base_mid_main.position = Vector2(2300, 350)
+	base_mid_main.is_main = false
+	
+	# Setting base attributes
+	base_mid_main.name = base_data_main["name"]
+	base_mid_main.attack_speed = base_data_main["atk_speed"]
+	base_mid_main.max_health = base_data_main["hp"]
+	base_mid_main.attack_damage = base_data_main["damage"]
+	base_mid_main.attack_type = base_data_main["atk_type"]
+	base_mid_main.attack_range = base_data_main["atk_range"]
+	base_mid_main.res_phys = base_data_main["res_phys"]
+	base_mid_main.res_mag = base_data_main["res_mag"]
+	
+	# Setting animation frames for idle and attack
+	base_mid_main.idle_row = base_data_main["idle_row"]
+	base_mid_main.wide_idle = base_data_main["wide_idle"]
+	
+	for frame in base_data_main["idle_frames"]:
+		base_mid_main.idle_frames.append(int(frame))
+	
+	base_mid_main.attack_row = base_data_main["atk_row"]
+	base_mid_main.wide_atk = base_data_main["wide_atk"]
+	
+	for frame in base_data_main["atk_frames"]:
+		base_mid_main.attack_frames.append(int(frame))
+	
+	# Set base texture
+	base_mid_main.get_node("Sprite2D").texture = load("res://assets/bases/enemy_mid_main.png")
+	base_mid_main.get_node("Sprite2D").scale = Vector2(1.25, 1.25)
+	
+	# Auxiliary mid bases
+	var xs = [2250, 2300, 2350, 2350, 2300, 2250]
+	var ys = [250, 270, 310, 390, 430, 450]
+	var aux_bases = []
+	
+	for i in range(6):
+		var base_mid_aux = base_scene.instantiate()
+		base_mid_aux.is_player = false
+		base_mid_aux.position = Vector2(xs[i], ys[i])
+		base_mid_aux.is_main = false
+		base_mid_aux.is_aux = true
+		
+		# Setting base attributes
+		base_mid_aux.name = base_data_aux["name"]
+		base_mid_aux.attack_speed = base_data_aux["atk_speed"]
+		base_mid_aux.max_health = base_data_aux["hp"]
+		base_mid_aux.attack_damage = base_data_aux["damage"]
+		base_mid_aux.attack_type = base_data_aux["atk_type"]
+		base_mid_aux.attack_range = base_data_aux["atk_range"]
+		base_mid_aux.res_phys = base_data_aux["res_phys"]
+		base_mid_aux.res_mag = base_data_aux["res_mag"]
+		
+		# Setting animation frames for idle and attack
+		base_mid_aux.idle_row = base_data_aux["idle_row"]
+		base_mid_aux.wide_idle = base_data_aux["wide_idle"]
+		
+		for frame in base_data_aux["idle_frames"]:
+			base_mid_aux.idle_frames.append(int(frame))
+		
+		base_mid_aux.attack_row = base_data_aux["atk_row"]
+		base_mid_aux.wide_atk = base_data_aux["wide_atk"]
+		
+		for frame in base_data_aux["atk_frames"]:
+			base_mid_aux.attack_frames.append(int(frame))
+		
+		# Set base texture
+		base_mid_aux.get_node("Sprite2D").texture = load("res://assets/bases/enemy_mid_aux.png")
+		base_mid_aux.get_node("Sprite2D").scale = Vector2(1.1, 1.1)
+		
+		aux_bases.append(base_mid_aux)
+	
+	# Return all bases
+	return [base_mid_main] + aux_bases
 
 
 func analyze_enemy_units():

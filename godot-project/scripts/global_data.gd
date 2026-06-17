@@ -49,6 +49,7 @@ func load_projectile_textures():
 	projectile_textures[5] = Dictionary()
 	projectile_textures[9] = Dictionary()
 	projectile_textures[-1] = Dictionary() # for main bases
+	projectile_textures[-2] = Dictionary() # for mid aux bases
 	
 	projectile_textures[2][true] = load("res://assets/projectiles/wind.png")
 	projectile_textures[2][false] = load("res://assets/projectiles/earth.png")
@@ -58,6 +59,7 @@ func load_projectile_textures():
 	projectile_textures[9][false] = load("res://assets/projectiles/doom.png")
 	projectile_textures[-1][true] = load("res://assets/projectiles/arrow.png")
 	projectile_textures[-1][false] = load("res://assets/projectiles/spell.png")
+	projectile_textures[-2][false] = load("res://assets/projectiles/spell2.png")
 
 
 func load_all_units():
