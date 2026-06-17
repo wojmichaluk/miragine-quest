@@ -358,6 +358,15 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_vcsgt")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cvmbd"]
+bg_color = Color(0.44313726, 0.67058825, 0.36078432, 0.7529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb450"]
+bg_color = Color(0.4440582, 0.6716262, 0.36094698, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ft6cd"]
+bg_color = Color(0.4440582, 0.6716262, 0.36094698, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
 bg_color = Color(0.016551722, 0.016551727, 0.016551709, 1)
 
@@ -408,6 +417,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6_bjd11")
+
+[node name="BattleButton" type="Button" parent="CanvasLayer/UI" unique_id=27501900]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 600.0
+offset_right = 950.0
+offset_bottom = 680.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_cvmbd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bb450")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ft6cd")
+text = "GOTOWY"
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI" unique_id=977985668]
 layout_mode = 1
@@ -630,7 +651,6 @@ tint_progress = Color(1, 1, 1, 0.7529412)
 y_sort_enabled = true
 
 [node name="GameTimer" type="Timer" parent="." unique_id=1442052412]
-autostart = true
 
 [connection signal="toggled" from="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space/SFXMuteButton" to="CanvasLayer/UI" method="_on_sfx_mute_button_toggled"]
 [connection signal="toggled" from="CanvasLayer/UI/Panel/MarginContainer/HBoxContainer/Space/MusicMuteButton" to="CanvasLayer/UI" method="_on_music_mute_button_toggled"]

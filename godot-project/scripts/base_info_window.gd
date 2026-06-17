@@ -44,9 +44,9 @@ func display_base_info(base_data: Dictionary):
 	
 	# Attack type info
 	atk_type_label.text = "Rodzaj ataku: " + (
-		"⚔️" if base_data["atk_type"] == "physical" \
-		else "🏹" if base_data["atk_type"] == "magical" \
-		else "🪄 (specjalny)"
+		"🏹" if base_data["atk_type"] == "physical" \
+		else "🪄" if base_data["atk_type"] == "magical" \
+		else "specjalny"
 	)
 	
 	# Attack speed info

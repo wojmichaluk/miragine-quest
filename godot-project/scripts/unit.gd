@@ -182,6 +182,7 @@ func find_closest_target():
 	var base = null
 	var min_metric_dist = INF
 	var min_real_dist = INF
+	var min_base_dist = INF
 	
 	# Finding the closest enemy
 	for body in bodies:
@@ -191,12 +192,15 @@ func find_closest_target():
 		# Checking if it is an enemy
 		if (is_in_group("player") and body.is_in_group("enemy")) or \
 			(is_in_group("enemy") and body.is_in_group("player")):
+			var metric_dist = metric_distance(body)
+			
 			# Checking if it is a base
 			if body.is_in_group("base"):
-				base = body
-				break
+				if metric_dist < min_base_dist:
+					base = body
+					min_base_dist = metric_dist
 				
-			var metric_dist = metric_distance(body)
+				continue
 			
 			if metric_dist < min_metric_dist:
 				target = body

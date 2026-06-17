@@ -9,11 +9,13 @@ extends Node2D
 # Game over scene
 @export var game_over_scene: PackedScene
 
+@onready var battle_button = $CanvasLayer/UI/BattleButton
+
 # Gold currency
-var player_gold: int = 1000
-var enemy_gold: int = 1000
-var player_gold_round: int = 800
-var enemy_gold_round: int = 800
+var player_gold: int = 0
+var enemy_gold: int = 0
+var player_gold_round: int = 1000
+var enemy_gold_round: int = 1000
 var player_gold_gain: float = 0.0
 var enemy_gold_gain: float = 0.0
 
@@ -31,7 +33,7 @@ var MAX_WEIGHT_LIMIT = 120
 
 # Timers
 var round_time: float = 40.0
-var current_time: float = 40.0
+var current_time: float
 var shopping_phase_duration: float = 5.0
 
 # Signals to notify UI
@@ -43,8 +45,11 @@ signal weight_changed(current, maximum, is_player)
 var active_player_unit_id
 var active_enemy_unit_id
 
+# Preparation phase before actual start of the game
+var start_cooldown = 5
+
 # Round number
-var round_no = 0
+var round_no = -1
 
 # Analyzed units data for AI
 var analyzed_data: Dictionary
@@ -62,18 +67,22 @@ func _ready() -> void:
 	time_changed.connect($CanvasLayer/UI.update_timer_display)
 	weight_changed.connect($CanvasLayer/UI.update_weight_display)
 	
-	# Displaying start values
-	gold_changed.emit(player_gold, true)
-	gold_changed.emit(enemy_gold, false)
-	time_changed.emit(current_time, is_shopping_phase())
-	weight_changed.emit(player_weight, player_weight_limit, true)
-	weight_changed.emit(enemy_weight, enemy_weight_limit, false)
-	
 	# Initial player unit selection
 	select_active_unit(0, true)
 	
-	# Initial AI purchase
-	enemy_ai_purchase()
+	# Possibility to prepare before starting the game
+	prepare()
+	
+	# Wait for the button click and start the game
+	await battle_button.pressed
+	battle_button.hide()
+	$GameTimer.start()
+	
+	# Displaying start values
+	gold_changed.emit(player_gold, true)
+	gold_changed.emit(enemy_gold, false)
+	weight_changed.emit(player_weight, player_weight_limit, true)
+	weight_changed.emit(enemy_weight, enemy_weight_limit, false)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -259,6 +268,16 @@ func select_active_unit(unit_id, is_player):
 	var spawn_delay = (time - 2) / (units_to_send + 1)
 	spawn_delay = max(min(spawn_delay, 0.5), 0.0)
 	$CanvasLayer/UI.update_unit_selection(unit_id, is_player, spawn_delay)
+
+
+func prepare():
+	current_time = start_cooldown
+	time_changed.emit(current_time, false)
+	
+	# Show popup with information
+	var info_popup_scene = preload("res://scenes/StartPopup.tscn")
+	var popup = info_popup_scene.instantiate()
+	$CanvasLayer/UI.add_child(popup)
 
 
 func spawn_unit(unit_id: int, is_player: bool):

@@ -44,7 +44,7 @@ func display_unit_info(unit_data: Dictionary):
 	weight_label.text = "💂 " + str(int(unit_data["weight"]))
 	
 	# Attack type info
-	atk_type_label.text = "Rodzaj ataku: " + ("⚔️" if unit_data["atk_type"] == "physical" else "🏹")
+	atk_type_label.text = "Rodzaj ataku: " + ("⚔️" if unit_data["atk_type"] == "physical" else "🪄")
 	
 	# Speed info
 	speed_label.text = "💨 " + str(int(unit_data["speed"]))
