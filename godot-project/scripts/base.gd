@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 # Base attributes
+@export var base_id: String
 @export var base_name: String
 @export var attack_speed: float
 @export var max_health: float
@@ -50,6 +51,9 @@ var timer = 0.0
 var frame_time = 0.1
 var current_frame_index = 0
 var is_ready = false
+
+var info_window_scene = preload("res://scenes/BaseInfoWindow.tscn")
+var current_window = null
 
 # Signals to notify main script about the base health and death
 signal base_health_changed(current, maximum, is_player)
@@ -316,3 +320,38 @@ func play_death_sound():
 	sfx_player.volume_db = randf_range(-2.0, 2.0)
 	sfx_player.pitch_scale = randf_range(0.9, 1.1) # a little bit of randomness
 	sfx_player.play()
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			toggle_info_window()
+
+
+func toggle_info_window():
+	# Close the window if already opened
+	if current_window and current_window.visible:
+		current_window.queue_free()
+		return
+	
+	# Getting base statistics from GlobalData
+	var stats = GlobalData.bases_data[base_id]
+	
+	# Instantiating a popup window
+	current_window = info_window_scene.instantiate()
+	add_child(current_window)
+	current_window.display_base_info(stats)
+	
+	# Positioning above/below the base depending on y-coordinate
+	var y_shift = 20 if global_position.y < 350 else -260
+	
+	if is_player:
+		current_window.global_position = global_position + Vector2(40, y_shift)
+	else:
+		current_window.global_position = global_position + Vector2(-360, y_shift)
+
+
+func _on_mouse_exited() -> void:
+	# Destroy the popup upon exiting
+	if current_window:
+		current_window.queue_free()

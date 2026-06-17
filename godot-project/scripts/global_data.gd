@@ -12,6 +12,9 @@ var projectile_textures: Dictionary = {}
 var player_units_data: Dictionary = {}
 var enemy_units_data: Dictionary = {}
 
+# Bases data
+var bases_data: Dictionary = {}
+
 # Extreme values for unit statistics
 var min_stats: Dictionary = {}
 var max_stats: Dictionary = {}
@@ -31,6 +34,9 @@ func _ready() -> void:
 	
 	# Load all units
 	load_all_units()
+	
+	# Load bases data
+	load_bases_data()
 	
 	# Calculate extreme values
 	calculate_extremes()
@@ -85,6 +91,22 @@ func load_units_data(file_path, is_player):
 				player_units_data = json.data
 			else:
 				enemy_units_data = json.data
+
+
+func load_bases_data():
+	var bases_data_path = "res://data/bases.json"
+	
+	# Load bases data
+	if FileAccess.file_exists(bases_data_path):
+		var file = FileAccess.open(bases_data_path, FileAccess.READ)
+		var json_string = file.get_as_text()
+		file.close()
+		
+		var json = JSON.new()
+		var error = json.parse(json_string)
+		
+		if error == OK:
+			bases_data = json.data
 
 
 func calculate_extremes():

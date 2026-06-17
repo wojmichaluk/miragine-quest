@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://b3dulrpa8lfxs"]
+
+[ext_resource type="Script" uid="uid://t7kt1wfjubt3" path="res://scripts/base_info_window.gd" id="1_734v7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_016g8"]
+bg_color = Color(0, 0, 0, 0.7529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drevu"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpm7o"]
+bg_color = Color(0.15539777, 0.19736046, 0.54321337, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpuyq"]
+bg_color = Color(0.13561687, 0.13561687, 0.13561681, 1)
+
+[node name="BaseInfoWindow" type="PanelContainer" unique_id=1204706492]
+z_index = 2
+offset_right = 400.0
+offset_bottom = 240.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_016g8")
+script = ExtResource("1_734v7")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1777601520]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=2013953917]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1971223005]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1369745735]
+layout_mode = 2
+
+[node name="AtkTypeLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1370063514]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="Labels" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1475748217]
+layout_mode = 2
+
+[node name="AtkSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=1795614629]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="HpLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=64498124]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="DamageLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=1009134677]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="AtkRangeLabel" type="Label" parent="MarginContainer/VBoxContainer/Labels" unique_id=538629860]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ResPhysContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=81676122]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ResPhysContainer" unique_id=739293233]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/ResPhysContainer" unique_id=2103911653]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_drevu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false
+
+[node name="ResMagContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1048792570]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ResMagContainer" unique_id=664683633]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/ResMagContainer" unique_id=1796026789]
+custom_minimum_size = Vector2(160, 30)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_dpuyq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bpm7o")
+show_percentage = false

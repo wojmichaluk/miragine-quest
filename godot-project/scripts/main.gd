@@ -82,25 +82,13 @@ func _process(delta: float) -> void:
 
 
 func setup_bases():
-	var bases_data_path = "res://data/bases.json"
-	var bases_data: Dictionary = {}
-	
-	# Load bases data
-	if FileAccess.file_exists(bases_data_path):
-		var file = FileAccess.open(bases_data_path, FileAccess.READ)
-		var json_string = file.get_as_text()
-		file.close()
-		
-		var json = JSON.new()
-		var error = json.parse(json_string)
-		
-		if error == OK:
-			bases_data = json.data
-	
 	# Initialize player and enemy bases
-	var player_base = initialize_base(bases_data["player"], true)
-	var enemy_base = initialize_base(bases_data["enemy"], false)
-	var enemy_bases_mid = initialize_base_mid(bases_data["enemy_mid_main"], bases_data["enemy_mid_aux"])
+	var player_base = initialize_base(GlobalData.bases_data["player"], "player", true)
+	var enemy_base = initialize_base(GlobalData.bases_data["enemy"], "enemy", false)
+	var enemy_bases_mid = initialize_base_mid(
+		GlobalData.bases_data["enemy_mid_main"],
+		GlobalData.bases_data["enemy_mid_aux"]
+	)
 	
 	# Adding bases to scene
 	add_child(player_base)
@@ -116,8 +104,9 @@ func setup_bases():
 	enemy_base.base_destroyed.connect(end_game)
 
 
-func initialize_base(base_data, is_player):
+func initialize_base(base_data, base_id, is_player):
 	var base = base_scene.instantiate()
+	base.base_id = base_id
 	base.is_player = is_player
 	base.position = Vector2(-4600 if is_player else 4600, 350)
 	base.is_main = true
@@ -155,6 +144,7 @@ func initialize_base(base_data, is_player):
 func initialize_base_mid(base_data_main, base_data_aux):
 	# Main mid base
 	var base_mid_main = base_scene.instantiate()
+	base_mid_main.base_id = "enemy_mid_main"
 	base_mid_main.is_player = false
 	base_mid_main.position = Vector2(2300, 350)
 	base_mid_main.is_main = false
@@ -193,6 +183,7 @@ func initialize_base_mid(base_data_main, base_data_aux):
 	
 	for i in range(6):
 		var base_mid_aux = base_scene.instantiate()
+		base_mid_aux.base_id = "enemy_mid_aux"
 		base_mid_aux.is_player = false
 		base_mid_aux.position = Vector2(xs[i], ys[i])
 		base_mid_aux.is_main = false

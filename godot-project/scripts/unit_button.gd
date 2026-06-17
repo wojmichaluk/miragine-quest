@@ -66,7 +66,7 @@ func toggle_info_window():
 	# Instantiating a popup window
 	current_window = info_window_scene.instantiate()
 	add_child(current_window)
-	current_window.display_info(stats)
+	current_window.display_unit_info(stats)
 	
 	# Positioning above the unit window
 	if is_player:

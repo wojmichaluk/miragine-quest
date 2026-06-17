@@ -33,9 +33,9 @@ func _process(delta: float) -> void:
 	pass
 
 
-func display_info(unit_data: Dictionary):
+func display_unit_info(unit_data: Dictionary):
 	# Name info
-	name_label.text = str(unit_data["name"])
+	name_label.text = unit_data["name"]
 	
 	# Cost info
 	cost_label.text = "🪙 " + str(int(unit_data["cost"]))
@@ -44,7 +44,7 @@ func display_info(unit_data: Dictionary):
 	weight_label.text = "💂 " + str(int(unit_data["weight"]))
 	
 	# Attack type info
-	atk_type_label.text = "Rodzaj ataku: " + ("⚔️" if str(unit_data["atk_type"]) == "physical" else "🪄")
+	atk_type_label.text = "Rodzaj ataku: " + ("⚔️" if unit_data["atk_type"] == "physical" else "🏹")
 	
 	# Speed info
 	speed_label.text = "💨 " + str(int(unit_data["speed"]))
