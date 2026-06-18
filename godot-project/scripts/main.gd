@@ -451,7 +451,6 @@ func enemy_ai_purchase():
 	# 20% chance for random selection
 	if randf() <= 0.2:
 		best_units.shuffle()
-		print("Dupa")
 		
 		# Buy "top 4" units
 		for i in range(4):

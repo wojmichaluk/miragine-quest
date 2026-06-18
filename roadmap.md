@@ -70,4 +70,11 @@ Najistotniejsze elementy związane z rozwojem projektu, z podziałem na tygodnie
 - dodanie panelu informacji o jednostce - po kliknięciu prawym przyciskiem myszy na okienko jednostki, pojawia się (popup) i w przystępny sposób prezentuje statystyki jednostki
 
 ### 15 VI - 21 VI
-- 
+- zmiana wyświetlania walut - ikonki zamiast tekstu
+- dodanie inteligentego wybierania jednostek przez komputer zamiast losowości
+- dodanie grafik dla wypuszczanych pocisków (_projectile_) przez jednostki z atakiem magicznym / zasięgowym
+- dodanie drugiej bazy przeciwnika w połowie jego części mapy; w związku z tym dostosowanie statystyk jednostek gracza (punkty zdrowia i obrażenia ~5-7% niższe)
+- dodanie panelu informacji dla baz, analogicznie jak dla jednostek
+- dodanie etapu przygotowania przed startem bitwy w ekranie głównym gry
+- dodanie zakładek z instrukcjami (_tutorial_) i źródłami (_credits_)
+- uzupełnienie dokumentacji i udostępnienie projektu na platformie https://itch.io/.
