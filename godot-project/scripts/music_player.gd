@@ -12,6 +12,7 @@ func _ready() -> void:
 	audio_player.stream = load("res://assets/music/background_glorious_morning.ogg")
 	audio_player.bus = "Music"
 	audio_player.autoplay = true
+	audio_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	audio_player.play()
 	
 	# Turn up the volume smoothly

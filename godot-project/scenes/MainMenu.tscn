@@ -429,19 +429,19 @@ theme_override_constants/separation = 50
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Start Game"
+text = "Rozpocznij grę"
 
 [node name="Tutorial" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1403582325]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Tutorial"
+text = "Instrukcje"
 
 [node name="Credits" type="Button" parent="CenterContainer/VBoxContainer" unique_id=9064420]
 custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Credits"
+text = "Źródła"
 
 [node name="SFXMuteButton" type="TextureButton" parent="." unique_id=1444564162]
 custom_minimum_size = Vector2(60, 60)

@@ -56,6 +56,8 @@ var analyzed_data: Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
+	
 	# Setup bases
 	setup_bases()
 	
@@ -446,10 +448,20 @@ func enemy_ai_purchase():
 	var stats = analyze_current_player_units()
 	var best_units = choose_units_by_profit(stats)
 	
-	# Buy top 2 best units
-	for i in range(2):
-		select_active_unit(best_units[i], false)
-		await get_tree().create_timer(2.0 / (i+1)).timeout
+	# 20% chance for random selection
+	if randf() <= 0.2:
+		best_units.shuffle()
+		print("Dupa")
+		
+		# Buy "top 4" units
+		for i in range(4):
+			select_active_unit(best_units[i], false)
+			await get_tree().create_timer(1.0).timeout
+	else:
+		# Buy top 2 best units
+		for i in range(2):
+			select_active_unit(best_units[i], false)
+			await get_tree().create_timer(2.0 / (i+1)).timeout
 
 
 func analyze_current_player_units():

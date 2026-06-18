@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://do7sublbb5der"]
+
+[ext_resource type="Script" uid="uid://w8018um46x2d" path="res://scripts/credits.gd" id="1_hi4w3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfv3y"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0.9411765)
+
+[node name="Credits" type="PanelContainer" unique_id=1680187819]
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 1500.0
+offset_bottom = 850.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cfv3y")
+script = ExtResource("1_hi4w3")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=89244112]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1439342587]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=240140148]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Źródła zasobów użytych w projekcie"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=366896136]
+layout_mode = 2
+
+[node name="Content" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=106435293]
+custom_minimum_size = Vector2(0, 602)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+theme_override_font_sizes/italics_font_size = 24
+bbcode_enabled = true
+text = "[b]Autor: Wojciech Michaluk[/b]
+
+[fill]Źródła są dokładnie wskazane w plikach .txt w folderze [i]credits[/i] w repozytorium projektu (link: [url]https://github.com/wojmichaluk/miragine-quest/tree/main/credits[/url]). Strony internetowe, z których były pobierane / generowane zasoby:[/fill]
+1) OpenGameArt - link: [url]https://opengameart.org/[/url]
+[fill]2) LPC Spritesheet Generator - link: [url]https://liberatedpixelcup.github.io/Universal-LPC-Spritesheet-Character-Generator[/url][/fill]
+3) Pixabay - link: [url]https://pixabay.com/sound-effects[/url]
+4) Newgrounds - link: [url]https://www.newgrounds.com/[/url]
+
+[fill]Pozostałe zasoby (grafiki) były przygotowane samodzielnie przez autora. Warto jeszcze wspomnieć o stronie Piliapp (link: [url]https://pl.piliapp.com/label/symbols[/url]), z której wykorzystano niektóre z emotikonek (tekst), które pojawiają się w okienkach z informacją o atrybutach jednostek i baz.[/fill]"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=81474561]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1390770326]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Zamknij okno"
+
+[connection signal="meta_clicked" from="MarginContainer/VBoxContainer/Content" to="." method="_on_content_meta_clicked"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

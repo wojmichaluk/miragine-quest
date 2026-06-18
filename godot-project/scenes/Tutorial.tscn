@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://k464j2kwe7c"]
+
+[ext_resource type="Script" uid="uid://3bk0y0k4w4pu" path="res://scripts/tutorial.gd" id="1_cfv3y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfv3y"]
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 0.9411765)
+
+[node name="Tutorial" type="PanelContainer" unique_id=1680187819]
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 1500.0
+offset_bottom = 850.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cfv3y")
+script = ExtResource("1_cfv3y")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=89244112]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1439342587]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=240140148]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Samouczek - podstawy gry"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=366896136]
+layout_mode = 2
+
+[node name="PagesContainer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1838161549]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Page1" type="RichTextLabel" parent="MarginContainer/VBoxContainer/PagesContainer" unique_id=106435293]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Fabuła[/b]
+
+[fill]Królestwo Bajtolandii prężnie się rozwija podczas rządów królowej Bajtycji. Niestety, siły ciemności kierowane przez arcyzłego maga O'Valisha porwały władczynię! Celem gracza jest rozprawienie się z oddziałami czarnoksiężnika i uwolnienie królowej, żeby w krainie mógł znowu nastać spokój. Aby to osiągnąć, musi wspiąć się na wyżyny swoich umiejętności taktycznych i zniszczyć oddziały przeciwnika, jego struktury obronne, a finalnie pokonać samego maga O'Valisha.[/fill]
+
+[b]Cel gry[/b]
+
+[fill]Twoim celem jest pokonanie armii czarnoksiężnika i zniszczenie jego struktur obronnych. Gra kończy się wygraną, kiedy uda się zlikwidować bazy wroga - oddział wartowniczy pod dowództwem hetmana von Mueschke oraz samego arcyzłego maga O'Valisha. Z kolei jeżeli przeciwnikowi uda się pokonać królewicza Bajtomira, gra kończy się przegraną.[/fill]
+
+"
+
+[node name="Page2" type="RichTextLabel" parent="MarginContainer/VBoxContainer/PagesContainer" unique_id=1684867832]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Świat gry[/b]
+
+[fill]Głównym obszarem gry jest prostokątna plansza, której wymiar poziomy definiuje części obszaru gry. Lewa połowa planszy to część gracza. Na jej skraju znajduje się królewicz Bajtomir (syn królowej, pierwszy w kolejce do tronu), który jest ostatnią ostoją po stronie sił gracza. Tutaj również są tworzone jednostki gracza na początku każdej rundy. Z kolei prawa połowa obszaru to część przeciwnika. W jej połowie znajdują się dodatkowe oddziały wartownicze pod dowództwem arcyzłego hetmana von Mueschke (niezależne od wysyłanych jednostek). Na jej skraju czeka arcyzły mag O'Valish, który jest ostatnią przeszkodą na drodze do uwolnienia królewny.[/fill]
+
+[b]Sterowanie[/b]
+
+[fill]Gra może być rozegrana w całości z użyciem jedynie myszy. Za pomocą myszki możesz zaznaczać jednostki w panelu wyboru, przesunąć podgląd obecnie wyświetlanego obszaru gry na minimapie oraz wybrać pożądane opcje w menu głównym / scenie gry. Z wykorzystaniem prawego przycisku myszy możesz uzyskać informacje o jednostkach / bazach, klikając na nie w głównej scenie gry.
+Opcjonalnie, za pomocą klawiszy A i D możesz przesuwać kamerę, aby zmienić obecnie podglądany obszar gry.[/fill]"
+
+[node name="Page3" type="RichTextLabel" parent="MarginContainer/VBoxContainer/PagesContainer" unique_id=662481891]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Wybór armii[/b]
+
+[fill]Przy wyborze jednostek powinieneś kierować się wartościami ich atrybutów, takich jak m.in. koszt jednostki, waga jednostki, rodzaj ataku, liczba punktów zdrowia, zadawane obrażenia, czy odporności na ataki fizyczne i magiczne. Po najechaniu na daną jednostkę w panelu wyboru i kliknięciu prawym przyciskiem myszy możesz uzyskać informacje dotyczące atrybutów jednostki, przedstawione w przystępnej formie.[/fill]
+
+[center][img=608x342]res://assets/tutorial/unit_stats.png[/img][/center]"
+
+[node name="Page4" type="RichTextLabel" parent="MarginContainer/VBoxContainer/PagesContainer" unique_id=344420491]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]Podgląd baz[/b]
+
+[fill]Analogicznie jak dla jednostek jest dla baz, czyli po kliknięciu na dowolnej bazie prawym przyciskiem myszy pojawią się szczegółowe informacje o jej atrybutach. W porównaniu do jednostek bazy nie mają niektórych ze statystyk, jako że są umieszczone statycznie na mapie: koszt, waga oraz szybkość poruszania się.[/fill]
+
+[center][img=656x369]res://assets/tutorial/base_stats.png[/img][/center]"
+
+[node name="Page5" type="RichTextLabel" parent="MarginContainer/VBoxContainer/PagesContainer" unique_id=788263882]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "[b]System walki[/b]
+
+[fill]Na początku każdej rundy wybierz typ jednostki, który chcesz wysłać do walki. W zależności od posiadanych funduszy i limitu liczby jednostek, odpowiednie oddziały są tworzone i pojawiają się na polu bitwy, ruszając w stronę przeciwnika. Możesz zmieniać zaznaczenie, tym samym wysyłając różne jednostki.
+Każda runda trwa 40 sekund, ale jednostki możesz tworzyć tylko przez pierwsze 5 sekund (oczywiście jeżeli starczy funduszy i limitu jednostek) - wtedy trwa faza kupowania. Przeciwnik wysyła oddziały do walki w analogiczny sposób.
+Po wysłaniu jednostek nie masz już wpływu na ich zachowanie - atakują one wroga zgodnie z zaprogramowanym zachowaniem co do podążania za jednostkami przeciwnika i wybierania celu do ataku.[/fill]
+
+[b]Wskazówki taktyczne[/b]
+
+Aby zwiększyć szanse na zwycięstwo (długoterminowo), możesz rozważyć następujące strategie:
+1) Armia złożona z nindż i/lub słabszych magów
+2) Armia złożona z najsilniejszych jednostek"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=81474561]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1078404934]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PrevButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1572000701]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Poprzednia strona"
+
+[node name="PageNumberLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=888749412]
+custom_minimum_size = Vector2(325, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=444929238]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Następna strona"
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1390770326]
+custom_minimum_size = Vector2(325, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Zamknij okno"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PrevButton" to="." method="_on_prev_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

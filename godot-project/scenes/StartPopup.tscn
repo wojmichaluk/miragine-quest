@@ -33,7 +33,7 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "[fill]Twoim celem jest uratowanie królowej Bajtycji z rąk arcyzłego maga O'Valisha. Musisz zbudować armię kierowaną przez Królewicza Bajtomira, która rozprawi się z oddziałami czarnoksiężnika.
 
-Możesz zaznajomić się z interfejsem gry i z typami jednostek (swoimi oraz przeciwnika). Możesz także podejrzeć bazy przeciwnika. Kiedy uznasz, że jesteś gotowy, kliknij przycisk \"GOTOWY\" w dolnej części ekranu gry.[/fill]"
+Możesz zaznajomić się z interfejsem gry i z typami jednostek (swoimi oraz przeciwnika). Możesz także podejrzeć bazy przeciwnika. Dodatkowe informacje pojawiają się po kliknięciu prawym przyciskiem myszy. Kiedy uznasz, że jesteś gotowy, kliknij przycisk \"GOTOWY\" w dolnej części ekranu gry.[/fill]"
 fit_content = true
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1727001309]

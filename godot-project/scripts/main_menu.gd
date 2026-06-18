@@ -1,6 +1,9 @@
 extends Control
 
 
+var tutorial_scene = preload("res://scenes/Tutorial.tscn")
+var credits_scene = preload("res://scenes/Credits.tscn")
+
 @onready var music_button = $MusicMuteButton
 @onready var sfx_button = $SFXMuteButton
 
@@ -21,11 +24,13 @@ func _on_start_game_pressed() -> void:
 
 
 func _on_tutorial_pressed() -> void:
-	print("Tutorial")
+	var tutorial = tutorial_scene.instantiate()
+	add_child(tutorial)
 
 
 func _on_credits_pressed() -> void:
-	print("Creators: Wojciech Michaluk and Godot")
+	var credits = credits_scene.instantiate()
+	add_child(credits)
 
 
 func _on_sfx_mute_button_toggled(toggled_on: bool) -> void:
